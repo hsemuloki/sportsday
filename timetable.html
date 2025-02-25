@@ -1,0 +1,79 @@
+<html>
+<head>
+    <title>Display Uploaded File</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('notice.webp');
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-repeat: no-repeat;
+            color: white;
+        }
+        .file-display {
+            margin-top: 50px;
+        }
+        img, video {
+            max-width: 80%;
+            max-height: 500px;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+        .pdf-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .pdf-container embed {
+            width: 80%;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Notice</h1>
+    <div class="file-display" id="fileContainer"></div>
+
+    <script>
+        window.onload = function () {
+            const fileName = localStorage.getItem('uploadedFileName');
+            const fileData = localStorage.getItem('uploadedFileData');
+            const fileContainer = document.getElementById('fileContainer');
+
+            if (fileName && fileData) {
+                // Check if the file is an image
+                if (fileData.match(/^data:image\//)) {
+                    const img = document.createElement('img');
+                    img.src = fileData;
+                    img.alt = fileName;
+                    fileContainer.appendChild(img);
+                }
+                // Check if the file is a video (for future use)
+                else if (fileData.match(/^data:video\//)) {
+                    const video = document.createElement('video');
+                    video.src = fileData;
+                    video.controls = true;
+                    video.alt = fileName;
+                    fileContainer.appendChild(video);
+                }
+                // Check if the file is a PDF
+                else if (fileData.match(/^data:application\/pdf/)) {
+                    const pdfContainer = document.createElement('div');
+                    pdfContainer.classList.add('pdf-container');
+                    const embed = document.createElement('embed');
+                    embed.src = fileData;
+                    embed.type = "application/pdf";
+                    pdfContainer.appendChild(embed);
+                    fileContainer.appendChild(pdfContainer);
+                }
+                // Unsupported format
+                else {
+                    fileContainer.innerHTML = `<p>Cannot display file. Unsupported format.</p>`;
+                }
+            } else {
+                fileContainer.innerHTML = `<p>No file uploaded or the file has been removed.</p>`;
+            }
+        };
+    </script>
+</body>
+</html>

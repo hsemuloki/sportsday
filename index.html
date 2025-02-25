@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Website</title>
+     <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+        }
+
+        /* Background Video */
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Header Section */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-bottom: 1px solid #495057;
+            position: relative;
+        }
+
+        .header-container a {
+            padding: 10px 15px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: background 0.3s;
+        }
+
+        .header-container a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+       /* Menu Toggle Animation */
+.menu {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.3s ease;
+}
+
+.menu.active {
+    transform: translateX(0);
+}
+
+/* Header Section */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-bottom: 1px solid #495057;
+    position: relative;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.menu-toggle.open {
+    transform: rotate(90deg); /* Rotate the hamburger icon when open */
+}
+
+/* Responsive Menu */
+@media (max-width: 768px) {
+    .menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 999;
+        transform: translateX(-100%); /* Initially hidden off-screen */
+    }
+
+    .menu.active {
+        display: flex;
+        transform: translateX(0); /* Slide into view */
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown button {
+            padding: 10px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dropdown button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            z-index: 1;
+            width: 200px;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Responsive Menu */
+        @media (max-width: 768px) {
+            .menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.9);
+                z-index: 999;
+            }
+
+            .menu.active {
+                display: flex;
+            }
+
+            .menu a {
+                text-align: center;
+                padding: 10px 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        /* Sports Boxes Section */
+        .sports-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .sports-box {
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .sports-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 18px;
+        }
+
+        .sports-box h3 {
+            margin: 10px 0;
+        }
+
+        .sports-box a {
+            display: block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+
+        .sports-box a:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .sports-box:hover {
+            transform: scale(1.05);
+        }
+
+        /* Search Bar */
+        .search-bar-container {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .search-bar {
+            width: 80%;
+            max-width: 500px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: box-shadow 0.3s;
+        }
+
+        .search-bar:focus {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+#about{
+    text-align: center;
+    padding: 50px 20px; 
+       background-color: rgba(255, 255, 255, 0.5);
+       color: white;
+}
+        /* Media Queries */
+        @media (max-width: 1200px) {
+            .sports-boxes {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            .header-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .group input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container a {
+                margin: 5px 0;
+            }
+
+            .sports-box {
+                padding: 10px;
+            }
+
+            .sports-box img {
+                max-height: 180px;
+                object-fit: cover;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                padding: 10px;
+            }
+
+            .sports-boxes {
+                gap: 10px;
+            }
+
+            .sports-box img {
+                max-height: 150px;
+                object-fit: cover;
+            }
+        }
+        /* Style for the footer section */
+footer {
+  background-color: #333; /* Dark background */
+  color: #fff; /* White text */
+  text-align: center; /* Center the text */
+  padding: 10px; /* Add padding around the content */
+  font-size: 16px; /* Adjust font size */
+  position: fixed; /* Keep footer at the bottom of the page */
+  width: 100%; /* Make footer span the entire width */
+  bottom: 0; /* Stick it to the bottom */
+}
+
+/* Optional: Change the color when hovering over the text */
+footer p:hover {
+  color: #f1c40f; /* Change text color to gold when hovered */
+}
+
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <video id="background-video" autoplay loop muted>
+        <source src="https://static.videezy.com/system/resources/previews/000/050/726/original/2016_08_15_SoccerField.mp4" type="video/mp4">
+    </video>  
+
+    <!-- Header Section -->
+    <div class="header-container">
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <div class="menu">
+            <a href="admin.html">Admin</a>
+            <a href="timetable.html">Notice</a>
+            <div class="dropdown">
+                <button>Sports Login</button>
+                <div class="dropdown-content">
+                    <a href="login.html">Chess Login</a>
+                    <a href="carrom2.html">Carrom Login</a>
+                    <a href="running3.html">Running Login</a>
+                    <a href="batminton3.html">Badminton Login</a>
+                    <a href="shotput3.html">Shotput Login</a>
+                    <a href="kabaddi3.html">Kabaddi Login</a>
+                    <a href="kho-kho3.html">Kho-Kho Login</a>
+                    <a href="boxcricket3.html">Box Cricket Login</a>
+                    <a href="tugofwar3.html">Tug of War Login</a>
+                    <a href="langadi3.html">Langadi Login</a>
+                    <a href="vollyball3.html">Volleyball Login</a>
+                </div>
+            </div>
+            <a href="https://github.com/hsemuloki">GitHub</a>
+             <div class="dropdown">
+                <button>individual sports</button>
+                <div class="dropdown-content">
+                    <a href="chess1.html">Chess </a>
+                    <a href="carrom1.html">Carrom </a>
+                    <a href="running2.html">Running </a>
+                    <a href="batminton2.html">Badminton </a>
+                    <a href="shotput2.html">Shotput </a>
+                </div>
+                
+            </div>
+             <div class="dropdown">
+                <button>teams sports</button>
+                <div class="dropdown-content">
+                    <a href="kabaddi2.html">Kabaddi </a>
+                    <a href="kho-kho2.html">Kho-Kho </a>
+                    <a href="boxcricket2.html">Box Cricket</a>
+                    <a href="tugofwar2.html">Tug of War </a>
+                    <a href="langadi2.html">Langadi </a>
+                    <a href="vollyball2.html">Volleyball </a>
+                </div>
+              </div>
+              <a href="resgistration1.html">students registration/login</a>
+              <a href="#about">About</a>
+
+        </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar-container">
+        <input type="text" id="searchBar" class="search-bar" placeholder="Search for sports...">
+    </div>
+
+    <!-- Sports Boxes -->
+    <div class="sports-boxes">
+        <div class="sports-box">
+            <a href="chess1.html">
+                <img src="chess4.webp" alt="Chess">
+            </a>
+            <h3>Chess</h3>
+        </div>
+        <div class="sports-box">
+            <a href="carrom1.html">
+                <img src="carrom4.webp" alt="Carrom">
+            </a>
+            <h3>Carrom</h3>
+        </div>
+        <div class="sports-box">
+            <a href="running2.html">
+                <img src="running5.jpg" alt="Running">
+            </a>
+            <h3>Running</h3>
+        </div>
+        <div class="sports-box">
+            <a href="batminton2.html">
+                <img src="batminton4.jpeg" alt="Badminton">
+            </a>
+            <h3>Badminton</h3>
+        </div>
+        <div class="sports-box">
+            <a href="shotput2.html">
+                <img src="shotput.jpg" alt="Shotput">
+            </a>
+            <h3>Shotput</h3>
+        </div>
+        <div class="sports-box">
+            <a href="kabaddi2.html">
+                <img src="kabaddi4.jpg" alt="Kabaddi">
+            </a>
+            <h3>Kabaddi</h3>
+        </div>
+        <div class="sports-box">
+            <a href="kho-kho2.html">
+                <img src="kho-kho5.jpg" alt="Kho-Kho">
+            </a>
+            <h3>Kho-Kho</h3>
+        </div>
+        <div class="sports-box">
+            <a href="boxcricket2.html">
+                <img src="boxcricket4.jpg" alt="Box Cricket">
+            </a>
+            <h3>Box Cricket</h3>
+        </div>
+        <div class="sports-box">
+            <a href="tugofwar2.html">
+                <img src="tugofwar4.jpg" alt="Tug of War">
+            </a>
+            <h3>Tug of War</h3>
+        </div>
+        <div class="sports-box">
+            <a href="langadi2.html">
+                <img src="langdi.png" alt="Langadi">
+            </a>
+            <h3>Langdi</h3>
+        </div>
+        <div class="sports-box">
+            <a href="vollyball2.html">
+                <img src="vollyball4.jpg" alt="Volleyball">
+            </a>
+            <h3>Volleyball</h3>
+        </div>
+    </div>
+   <!-- About Section -->
+<section id="about" >
+    <h2>About Us</h2>
+    <p>Welcome to Vidya Vikas Society College of Arts, Science & Commerce Sports Day! Our annual Sports Day celebrates athleticism, teamwork, and school spirit. With a variety of exciting individual and team sports, including chess, badminton, kabaddi, and volleyball, this event is a chance for students and faculty to come together and showcase their talent.
+
+Whether you're here to compete or cheer, Sports Day brings our college community closer, fostering unity and sportsmanship. Join us in making this a memorable day of fun, competition, and camaraderie! ann  </p>
+</section>
+
+  <footer>
+    <p>&copy; 2025 Umesh Laxman Koli. All rights reserved.</p>
+  </footer>
+
+
+
+    <!-- JavaScript for Search and Menu -->
+    <script>
+        document.getElementById('searchBar').addEventListener('input', function () {
+            const query = this.value.toLowerCase();
+            const boxes = document.querySelectorAll('.sports-box');
+            boxes.forEach(box => {
+                const text = box.querySelector('h3').textContent.toLowerCase();
+                if (text.includes(query)) {
+                    box.style.display = '';
+                } else {
+                    box.style.display = 'none';
+                }
+            });
+        });
+        document.getElementById('searchBar').addEventListener('input', function () {
+            const query = this.value.toLowerCase();
+            const boxes = document.querySelectorAll('.sports-box');
+            boxes.forEach(box => {
+                const text = box.querySelector('h3').textContent.toLowerCase();
+                if (text.includes(query)) {
+                    box.style.display = '';
+                } else {
+                    box.style.display = 'none';
+                }
+            });
+        });
+       function toggleMenu() {
+    const menu = document.querySelector('.menu');
+    const menuToggle = document.querySelector('.menu-toggle');
+
+    menu.classList.toggle('active');
+    menuToggle.classList.toggle('open'); // Add/remove 'open' class to rotate the icon
+}
+
+    </script>
+</body>
+</html>

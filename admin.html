@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+    <style>
+        /* Background video styles */
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* General body styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        /* Heading styles */
+        h1 {
+            color: #fff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Form container styles */
+        .container3 {
+            background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 5px white;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Input field styles */
+        .bt3 {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .bt3:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            outline: none;
+        }
+
+        /* Button styles */
+        .btn3 {
+            width: 48%;
+            padding: 10px;
+            margin: 5px;
+        background-color: white;
+            border: none;
+           
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            
+        }
+
+        .btn3:hover {
+           
+            background-image:linear-gradient(to right,white,black);
+        }
+
+        .btn3[type="reset"] {
+            background-color: white;
+        }
+
+        .btn3[type="reset"]:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <video id="background-video" autoplay loop muted>
+        <source src="https://static.videezy.com/system/resources/previews/000/050/726/original/2016_08_15_SoccerField.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Admin Login Form -->
+    <h1>Admin Login</h1>
+    <form action="admin.jsp" method="post">
+        <div class="container3">
+            <input type="text" name="txtName" placeholder="Username" class="bt3"><br><br>
+            <input type="password" name="txtPass" placeholder="Password" class="bt3"><br><br>
+            <input type="submit" value="LOGIN" class="btn3">
+            <input type="reset" class="btn3">
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Registration</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('notice.webp');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .form-container, .file-upload {
+            max-width: 500px;
+            width: 100%;
+            margin: 20px;
+            padding: 20px;
+            background: rgba(26, 26, 26, 0.9); /* Semi-transparent dark gray */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .input, .sub1, .sub8, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 1rem;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            background-color: #000;
+            color: #fff;
+        }
+
+        .input:focus, select:focus {
+            outline: none;
+            border-color: #fff;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .sub1, .sub8 {
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .sub1:hover, .sub8:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+            margin-top: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            h1, h2 {
+                font-size: 1.5rem;
+            }
+
+            .input, .sub1, .sub8 {
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-container, .file-upload {
+                padding: 15px;
+            }
+
+            h1, h2 {
+                font-size: 1.2rem;
+            }
+
+            .input, .sub1, .sub8 {
+                font-size: 0.8rem;
+                padding: 8px;
+            }
+        }
+      .header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent dark background */
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.nav-links a:hover {
+    color: #ffd700; /* Gold color on hover */
+    transform: scale(1.1);
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        padding: 15px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+}
+
+    </style>
+</head>
+<body>
+  <div class="header">
+    <div class="menu-toggle" id="menuToggle">&#9776;</div>
+    <nav class="nav-links" id="navLinks">
+        <a href="#section1">New Registration</a>
+        <a href="#section3">Upload Timetable</a>
+        <a href="#section4">students user delete</a>
+        <a href="#section5">update admin password</a>
+        
+    </nav>
+</div>
+
+    <div class="form-container">
+        <!-- Registration Form -->
+        <section id="section1">
+        <div  id="register-section">
+            <form action="registration.jsp" onsubmit="return validateForm()">
+                <h1>New Registration</h1>
+                <div class="container">
+                    <select id="staffName" name="txtName" class="input" required>
+                        <option value="">-- Select Staff Name --</option>
+                    </select>
+                    <select id="password" name="txtPass1" class="input" required>
+                        <option value="">-- Select Password --</option>
+                    </select>
+                    <select id="confirmPassword" name="txtPass2" class="input" required>
+                        <option value="">-- Select Password --</option>
+                    </select>
+                    <br><br>
+                    <input type="submit" value="Register" class="sub1"><br>
+                    <input type="reset" class="sub1">
+                </div>
+            </form>
+            <button class="sub8" onClick="showDeleteSection()">Go to Delete User</button>
+        </div>
+        </section>
+        <!-- Excel Upload Section -->
+        <div class="form-section">
+            <h2>Upload Excel File</h2>
+            <input type="file" id="excelFile" accept=".xlsx, .xls" /><br><br>
+            <button type="button" id="removeExcel" class="sub1" disabled>Remove Excel Data</button>
+        </div>
+    </div>
+
+    <!-- Delete User Form -->
+   
+        <div class="form-container" id="delete-section" style="display:none;">
+            <form action="registration1.jsp">
+                <h1>Delete User</h1>
+                <div class="container">
+                    <input type="text" name="txtName" placeholder="Enter staff Name" class="input" required><br>
+                    <input type="password" name="txtPass1" placeholder="Enter Password" class="input" required><br><br>
+                    <input type="submit" value="Delete" class="sub1"><br>
+                    <input type="reset" class="sub1">
+                </div>
+            </form>
+            <button class="sub8" onClick="showRegisterSection()">Go to Registration</button>
+        </div>
+    
+    <section id="section4">
+ 
+            <form action="studentsdel.jsp">
+                <h1>Delete User</h1>
+                <div class="form-container">
+                    <input type="text" name="txtName" placeholder="Enter staff Name" class="input" required><br>
+                    <input type="password" name="txtPass1" placeholder="Enter Password" class="input" required><br><br>
+                    <input type="submit" value="Delete" class="sub1"><br>
+                    <input type="reset" class="sub1">
+                </div>
+            </form>
+            
+        
+    </section>
+    <section id="section5">
+     <div class="form-container">
+        <h1>Update Credentials</h1>
+        <form action="admin1.jsp" method="post">
+          
+            <input type="text" id="txtName" name="txtName" class="input" placeholder="Enter current username" required>
+
+          
+            <input type="password" id="txtPass" name="txtPass" class="input" placeholder="Enter current password" required>
+
+          
+            <input type="text" id="newName" name="newName" class="input" placeholder="Enter new username" required>
+
+           
+            <input type="password" id="newPass" name="newPass" class="input" placeholder="Enter new password" required>
+
+            <button type="submit" class="sub1">Update</button>
+            <button type="reset" class="sub1">reset</button>
+        </form>
+    </div>
+    </section>
+    <section id="section3">
+  <div class="file-upload">
+        <h2>Upload File</h2>
+        <div class="upload-btn-wrapper">
+            <input type="file" id="notice" name="myfile" /><br><br>
+        </div>
+        <button type="button" onClick="submitNotice()" class="sub1">Upload</button><br><br>
+        <button type="button" onClick="removeFile()" class="sub1">Remove File</button>
+        <br><br>
+        <a href="timetable.html" target="_blank">Go to File Display Page</a>
+    </div>
+    </section>
+    <script>
+        const excelFileInput = document.getElementById('excelFile');
+        const removeExcelButton = document.getElementById('removeExcel');
+
+        // Load Excel data from localStorage on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const storedData = localStorage.getItem('excelData');
+            if (storedData) {
+                const parsedData = JSON.parse(storedData);
+                populateDropdowns(parsedData);
+                removeExcelButton.disabled = false;
+            }
+        });
+
+        excelFileInput.addEventListener('change', handleFile);
+        removeExcelButton.addEventListener('click', removeExcelData);
+
+      function handleFile(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        // Store the Excel file data in localStorage
+        localStorage.setItem('uploadedFileName', file.name);
+        localStorage.setItem('uploadedFileData', e.target.result);
+
+        // Read the Excel file
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+        const json = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+        // Store the parsed data in localStorage
+        localStorage.setItem('excelData', JSON.stringify(json));
+
+        // Populate the dropdowns with the data
+        populateDropdowns(json);
+
+        // Enable the Remove Excel Data button
+        document.getElementById('removeExcel').disabled = false;
+    };
+    reader.readAsArrayBuffer(file);
+}
+
+        function populateDropdowns(data) {
+            const staffNameDropdown = document.getElementById('staffName');
+            const passwordDropdown = document.getElementById('password');
+            const confirmPasswordDropdown = document.getElementById('confirmPassword');
+
+            staffNameDropdown.innerHTML = '<option value="">-- Select Staff Name --</option>';
+            passwordDropdown.innerHTML = '<option value="">-- Select Password --</option>';
+            confirmPasswordDropdown.innerHTML = '<option value="">-- Select Password --</option>';
+
+            data.forEach((row, index) => {
+                if (index === 0) return;
+
+                const [staffName, password] = row;
+                if (staffName) {
+                    const nameOption = document.createElement('option');
+                    nameOption.value = staffName;
+                    nameOption.textContent = staffName;
+                    staffNameDropdown.appendChild(nameOption);
+                }
+                if (password) {
+                    const passOption = document.createElement('option');
+                    passOption.value = password;
+                    passOption.textContent = password;
+                    passwordDropdown.appendChild(passOption);
+
+                    const confirmPassOption = document.createElement('option');
+                    confirmPassOption.value = password;
+                    confirmPassOption.textContent = password;
+                    confirmPasswordDropdown.appendChild(confirmPassOption);
+                }
+            });
+        }
+
+       function removeExcelData() {
+    // Clear the Excel data in localStorage
+    localStorage.removeItem('excelData');
+
+    // Clear the dropdown options
+    const staffNameDropdown = document.getElementById('staffName');
+    const passwordDropdown = document.getElementById('password');
+    const confirmPasswordDropdown = document.getElementById('confirmPassword');
+
+    staffNameDropdown.innerHTML = '<option value="">-- Select Staff Name --</option>';
+    passwordDropdown.innerHTML = '<option value="">-- Select Password --</option>';
+    confirmPasswordDropdown.innerHTML = '<option value="">-- Select Password --</option>';
+
+    // Disable the Remove Excel Data button
+    document.getElementById('removeExcel').disabled = true;
+}
+
+         function showDeleteSection() {
+            document.getElementById('register-section').style.display = 'none';
+            document.getElementById('delete-section').style.display = 'block';
+        }
+
+        function showRegisterSection() {
+            document.getElementById('register-section').style.display = 'block';
+            document.getElementById('delete-section').style.display = 'none';
+        }
+
+         function submitNotice() {
+    const fileInput = document.getElementById('notice');
+    if (fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+
+      // Check if the file type is either PDF or an image
+      const fileType = file.type;
+      if (fileType === 'application/pdf' || fileType.startsWith('image/')) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          localStorage.setItem('uploadedFileName', file.name);
+          localStorage.setItem('uploadedFileData', e.target.result);
+
+          alert("File uploaded successfully!");
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        alert("Invalid file type. Please upload a PDF or image file.");
+      }
+    } else {
+      alert("No file selected.");
+    }
+  }
+
+  function removeFile() {
+    localStorage.removeItem('uploadedFileName');
+    localStorage.removeItem('uploadedFileData');
+    alert("File removed successfully!");
+  }
+        // Validation for the form before submission
+        function validateForm() {
+            // Validate staff name (only letters)
+            const staffName = document.getElementById('staffName').value;
+            const nameRegex = /^[a-zA-Z\s]+$/;
+            if (!nameRegex.test(staffName)) {
+                alert("Staff Name can only contain letters.");
+                return false;
+            }
+
+            // Validate password (only numbers)
+            const password = document.getElementById('password').value;
+            const passwordRegex = /^[0-9]+$/;
+            if (!passwordRegex.test(password)) {
+                alert("Password can only contain numbers.");
+                return false;
+            }
+
+            // Validate that password and confirm password match
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+
+            return true;
+        }
+        const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+    });
+    </script>
+</body>
+</html>

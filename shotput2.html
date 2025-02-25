@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Players and Scores</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('shotput.jpg');
+            background-color: #000; /* Fallback color */
+            color: #fff;
+            line-height: 1.6;
+            padding: 20px;
+
+            /* Background image adjustments */
+            background-repeat: no-repeat;
+            background-size: cover; /* Ensures the image covers the entire viewport */
+            background-position: center; /* Centers the image */
+            background-attachment: fixed; /* Keeps the background static during scrolling */
+        }
+
+        /* Header Styles */
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #111;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #444;
+            font-size: 1rem;
+        }
+
+        th {
+            background-color: #222;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+            background-color: #333;
+        }
+
+        tr:hover {
+            background-color: #444;
+        }
+
+        /* Button Styles */
+        button.refresh-btn {
+            display: block;
+            width: 150px;
+            margin: 0 auto 20px;
+            padding: 10px;
+            font-size: 1rem;
+            background-color: #000;
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        button.refresh-btn:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* Date Time and Winner Container */
+        #dateTimeContainer, #winnerContainer {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #111;
+            border: 1px solid #444;
+            border-radius: 4px;
+        }
+
+        #dateTimeContainer h2, #winnerContainer h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        #dateTimeContainer p, #winnerContainer p {
+            font-size: 1rem;
+            color: #ccc;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            button.refresh-btn {
+                width: 100%;
+                font-size: 0.9rem;
+            }
+
+            #dateTimeContainer, #winnerContainer {
+                padding: 15px;
+            }
+
+            #dateTimeContainer h2, #winnerContainer h2 {
+                font-size: 1.2rem;
+            }
+
+            #dateTimeContainer p, #winnerContainer p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            th, td {
+                font-size: 0.8rem;
+                padding: 8px;
+            }
+
+            button.refresh-btn {
+                font-size: 0.8rem;
+            }
+
+            #dateTimeContainer h2, #winnerContainer h2 {
+                font-size: 1rem;
+            }
+
+            #dateTimeContainer p, #winnerContainer p {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Players and Scores</h1>
+  
+    <table>
+        <thead>
+            <tr>
+                <th>Player 1</th>
+                <th>Class 1</th>
+                <th>Roll No 1</th>
+                <th>Score 1</th>
+                <th>Player 2</th>
+                <th>Class 2</th>
+                <th>Roll No 2</th>
+                <th>Score 2</th>
+            </tr>
+        </thead>
+        <tbody id="displayList"></tbody>
+    </table>
+    <button class="refresh-btn" onclick="refreshPage()">Refresh</button>
+    <div id="dateTimeContainer">
+        <h2>Date and Time</h2>
+        <p id="dateTimeDisplay">Loading...</p>
+    </div>
+    <div id="winnerContainer">
+        <h2>Winner</h2>
+        <p id="winnerDisplay">Loading winner...</p>
+    </div>
+    <script>
+        function displayItems() {
+            const displayList = document.getElementById('displayList');
+            displayList.innerHTML = '';
+            const items = JSON.parse(localStorage.getItem('items6')) || [];
+
+            for (let i = 0; i < items.length; i += 2) {
+                const row = document.createElement('tr');
+                
+                const cell1 = document.createElement('td');
+                const classCell1 = document.createElement('td');
+                const rollCell1 = document.createElement('td');
+                const scoreCell1 = document.createElement('td');
+                const cell2 = document.createElement('td');
+                const classCell2 = document.createElement('td');
+                const rollCell2 = document.createElement('td');
+                const scoreCell2 = document.createElement('td');
+
+                cell1.textContent = items[i].name;
+                classCell1.textContent = items[i].class; // Assuming class is stored in items[i].class
+                rollCell1.textContent = items[i].rollNo; // Assuming roll number is stored in items[i].rollNo
+                scoreCell1.textContent = items[i].score;
+
+                row.appendChild(cell1);
+                row.appendChild(classCell1);
+                row.appendChild(rollCell1);
+                row.appendChild(scoreCell1);
+
+                if (i + 1 < items.length) {
+                    cell2.textContent = items[i + 1].name;
+                    classCell2.textContent = items[i + 1].class; // Assuming class is stored in items[i + 1].class
+                    rollCell2.textContent = items[i + 1].rollNo; // Assuming roll number is stored in items[i + 1].rollNo
+                    scoreCell2.textContent = items[i + 1].score;
+                } else {
+                    cell2.textContent = '';
+                    classCell2.textContent = '';
+                    rollCell2.textContent = '';
+                    scoreCell2.textContent = '';
+                }
+
+                row.appendChild(cell2);
+                row.appendChild(classCell2);
+                row.appendChild(rollCell2);
+                row.appendChild(scoreCell2);
+
+                displayList.appendChild(row);
+            }
+        }
+
+        function displayDateTime() {
+            const dateTime = localStorage.getItem('dateTime9');
+            const dateTimeDisplay = document.getElementById('dateTimeDisplay');
+            if (dateTime) {
+                dateTimeDisplay.textContent = ` ${new Date(dateTime).toLocaleString()}`;
+            } else {
+                dateTimeDisplay.textContent = 'No date and time saved.';
+            }
+        }
+
+        function displayWinner() {
+            const winnerDisplay = document.getElementById('winnerDisplay');
+            const winner = localStorage.getItem('winner9');
+            if (winner) {
+                winnerDisplay.textContent = `Winner: ${winner}`;
+            } else {
+                winnerDisplay.textContent = 'No winner has been set.';
+            }
+        }
+
+        function refreshPage() {
+            displayItems();
+            displayDateTime();
+            displayWinner();
+        }
+
+        window.onload = function() {
+            displayItems();
+            displayDateTime();
+            displayWinner();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<html>
+    <style>body{
+            background-image: url('kho-kho5.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    .bt6 {
+    
+  width: 245px;
+  min-height: 45px;
+  color: #fff;
+  outline: none;
+  transition: 0.35s;
+  padding: 0px 7px;
+  background-color: #212121;
+  border-radius: 6px;
+  border: 2px solid #212121;
+  box-shadow: 6px 6px 10px rgba(0,0,0,1),
+  1px 1px 10px rgba(255, 255, 255, 0.6);
+}
+.bt6::placeholder {
+  color: #999;
+}
+.bt6:focus.bt6::placeholder {
+  transition: 0.3s;
+  opacity: 0;
+}
+.bt6:focus {
+  transform: scale(1.05);
+  box-shadow: 6px 6px 10px rgba(0,0,0,1),
+  1px 1px 10px rgba(255, 255, 255, 0.6),
+  inset 2px 2px 10px rgba(0,0,0,1),
+  inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+}
+.btn6 {
+  padding: 10px 35px;
+  cursor: pointer;
+  background-color: #212121;
+  border-radius: 6px;
+  border: 2px solid #212121;
+  box-shadow: 6px 6px 10px rgba(0,0,0,1),
+  1px 1px 10px rgba(255, 255, 255, 0.6);
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  transition: 0.35s;
+}
+.btn6:hover {
+  transform: scale(1.05);
+  box-shadow: 6px 6px 10px rgba(0,0,0,1),
+  1px 1px 10px rgba(255, 255, 255, 0.6),
+  inset 2px 2px 10px rgba(0,0,0,1),
+  inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+}
+
+.btn6:focus {
+  transform: scale(1.05);
+  box-shadow: 6px 6px 10px rgba(0,0,0,1),1px 1px 10px rgba(255, 255, 255, 0.6),inset 2px 2px 10px rgba(0,0,0,1),inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+}
+h1{
+    font-family: impact;
+    text-align: center;
+    color:black;
+}
+.container6 {
+    color:black;
+     border-radius: 15px;
+  box-shadow: inset 2px 2px 10px rgba(0,0,0,1),inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+    padding: 65px 45px;
+ text-align: center;
+  justify-content: center;
+  align-items: center;
+}</style>
+<body>
+<h1>kho-kho</h1>
+<form action="kho-kho.jsp" method="post">
+    <div class="container6">
+        <input type="text" name="txtName" placeholder="username" class="bt6"><br><br>
+        <input type="password" name="txtPass" placeholder="password" class="bt6"><br><br>
+<input type="submit" value="LOGIN" class="btn6">
+<input type="reset" class="btn6"><!-- comment -->
+    </div>
+    </form>
+
+</body>
+</html>

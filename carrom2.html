@@ -1,0 +1,208 @@
+<html>
+    <style>   body{
+            background-image: url('carrom4.webp');
+           object-fit: cover;
+           background-size: 38cm;
+           background-repeat: no-repeat;
+            
+        }
+.container {
+    color:black;
+     border-radius: 15px;
+  box-shadow: inset 2px 2px 10px rgba(0,0,0,1),inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+    padding: 65px 45px;
+ text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.bt {
+    
+  width: 245px;
+  min-height: 45px;
+  color: #fff;
+  outline: none;
+  transition: 0.35s;
+  padding: 0px 7px;
+  background-color: #212121;
+  border-radius: 6px;
+  border: 2px solid #212121;
+  box-shadow: 6px 6px 10px rgba(0,0,0,1),
+  1px 1px 10px rgba(255, 255, 255, 0.6);
+}
+.bt::placeholder {
+  color: #999;
+}
+.bt:focus.bt::placeholder {
+  transition: 0.3s;
+  opacity: 0;
+}
+.bt:focus {
+  transform: scale(1.05);
+  box-shadow: 6px 6px 10px rgba(0,0,0,1),
+  1px 1px 10px rgba(255, 255, 255, 0.6),
+  inset 2px 2px 10px rgba(0,0,0,1),
+  inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+}
+.btn {
+  padding: 10px 35px;
+  cursor: pointer;
+  background-color: #212121;
+  border-radius: 6px;
+  border: 2px solid #212121;
+  box-shadow: 6px 6px 10px rgba(0,0,0,1),
+  1px 1px 10px rgba(255, 255, 255, 0.6);
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  transition: 0.35s;
+}
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 6px 6px 10px rgba(0,0,0,1),
+  1px 1px 10px rgba(255, 255, 255, 0.6),
+  inset 2px 2px 10px rgba(0,0,0,1),
+  inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+}
+
+.btn:focus {
+  transform: scale(1.05);
+  box-shadow: 6px 6px 10px rgba(0,0,0,1),1px 1px 10px rgba(255, 255, 255, 0.6),inset 2px 2px 10px rgba(0,0,0,1),inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+}
+h1{
+    font-family: ROMAN TIME;
+    font-size: 1CM;
+}
+
+
+
+/* Global styles */
+body {
+  background-image: url('carrom4.webp');
+  object-fit: cover;
+  background-size: cover; /* Use cover to ensure the background image fills the screen */
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif; /* Add a fallback font */
+}
+
+.container {
+  color: black;
+  border-radius: 15px;
+  box-shadow: inset 2px 2px 10px rgba(0,0,0,1), inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+  padding: 5% 8%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+/* Button styles */
+.bt {
+  width: 100%;
+  max-width: 245px; /* Maximum width of the button */
+  min-height: 45px;
+  color: #fff;
+  outline: none;
+  transition: 0.35s;
+  padding: 0 7px;
+  background-color: #212121;
+  border-radius: 6px;
+  border: 2px solid #212121;
+  box-shadow: 6px 6px 10px rgba(0,0,0,1), 1px 1px 10px rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+}
+
+.bt::placeholder {
+  color: #999;
+}
+
+.bt:focus::placeholder {
+  transition: 0.3s;
+  opacity: 0;
+}
+
+.bt:focus {
+  transform: scale(1.05);
+  box-shadow: 6px 6px 10px rgba(0,0,0,1), 1px 1px 10px rgba(255, 255, 255, 0.6), inset 2px 2px 10px rgba(0,0,0,1), inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+}
+
+.btn {
+  padding: 10px 35px;
+  cursor: pointer;
+  background-color: #212121;
+  border-radius: 6px;
+  border: 2px solid #212121;
+  box-shadow: 6px 6px 10px rgba(0,0,0,1), 1px 1px 10px rgba(255, 255, 255, 0.6);
+  color: #fff;
+  font-size: 1rem; /* Responsive font size */
+  font-weight: bold;
+  transition: 0.35s;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 6px 6px 10px rgba(0,0,0,1), 1px 1px 10px rgba(255, 255, 255, 0.6), inset 2px 2px 10px rgba(0,0,0,1), inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+}
+
+.btn:focus {
+  transform: scale(1.05);
+  box-shadow: 6px 6px 10px rgba(0,0,0,1), 1px 1px 10px rgba(255, 255, 255, 0.6), inset 2px 2px 10px rgba(0,0,0,1), inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+}
+
+/* Heading Styles */
+h1 {
+  font-family: 'Times New Roman', serif; /* Corrected font-family */
+  font-size: 2.5rem; /* Size that scales better */
+}
+
+/* Media Queries for Responsiveness */
+
+/* Tablet Screens */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 10% 5%;
+  }
+
+  .bt, .btn {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Mobile Screens */
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 15% 5%;
+  }
+
+  .bt, .btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+</style>
+<center><h1>carrom login</h1></center>
+
+<form action="login1.jsp" method="post">
+    <div class="container">  
+        <input type="text" name="txtName" class="bt" placeholder="username"><br><br>
+        <input type="password" name="txtPass" class="bt" placeholder="password"><br><br>
+        <input type="submit" value="LOGIN" class="btn">
+        <input type="reset" class="btn"><br><br>
+    </div>
+    </form>
+
+</body>
+</html>

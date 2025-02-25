@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Players and Results</title>
+    <style>  
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('chess4.webp');
+            background-color: #000; /* Fallback color */
+            color: #fff;
+            line-height: 1.6;
+            padding: 20px;
+            background-repeat: no-repeat;
+            background-size: cover; /* Ensures the image covers the entire viewport */
+            background-position: center; /* Centers the image */
+            background-attachment: fixed; /* Keeps the background static during scrolling */
+        }
+
+        /* Header Styles */
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #111;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #444;
+            font-size: 1rem;
+        }
+
+        th {
+            background-color: #222;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+            background-color: #333;
+        }
+
+        tr:hover {
+            background-color: #444;
+        }
+
+        /* Button Styles */
+        button.refresh-btn {
+            display: block;
+            width: 150px;
+            margin: 0 auto 20px;
+            padding: 10px;
+            font-size: 1rem;
+            background-color: #000;
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        button.refresh-btn:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* Date Time and Winner Container */
+        #dateTimeContainer, #winnerContainer {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #111;
+            border: 1px solid #444;
+            border-radius: 4px;
+        }
+
+        #dateTimeContainer h2, #winnerContainer h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        #dateTimeContainer p, #winnerContainer p {
+            font-size: 1rem;
+            color: #ccc;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            button.refresh-btn {
+                width: 100%;
+                font-size: 0.9rem;
+            }
+
+            #dateTimeContainer, #winnerContainer {
+                padding: 15px;
+            }
+
+            #dateTimeContainer h2, #winnerContainer h2 {
+                font-size: 1.2rem;
+            }
+
+            #dateTimeContainer p, #winnerContainer p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            th, td {
+                font-size: 0.8rem;
+                padding: 8px;
+            }
+
+            button.refresh-btn {
+                font-size: 0.8rem;
+            }
+
+            #dateTimeContainer h2, #winnerContainer h2 {
+                font-size: 1rem;
+            }
+
+            #dateTimeContainer p, #winnerContainer p {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Players and Results</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Player 1</th>
+                <th>Roll No 1</th>
+                <th>Class 1</th>
+                <th>Result 1</th>
+                <th>Player 2</th>
+                <th>Roll No 2</th>
+                <th>Class 2</th>
+                <th>Result 2</th>
+            </tr>
+        </thead>
+        <tbody id="displayList"></tbody>
+    </table>
+
+    <button class="refresh-btn" onclick="refreshPage()">Refresh</button>
+
+    <div id="dateTimeContainer">
+        <h2>Date and Time</h2>
+        <p id="dateTimeDisplay">Loading...</p>
+    </div>
+    <div id="winnerContainer">
+        <h2>Winner</h2>
+        <p id="winnerDisplay">Loading winner...</p>
+    </div>
+    
+    <script>
+        function displayItems() {
+            const displayList = document.getElementById('displayList');
+            displayList.innerHTML = '';
+            const items = JSON.parse(localStorage.getItem('items')) || [];
+
+            // Update the table to show the status instead of scores
+            for (let i = 0; i < items.length; i += 2) {
+                const row = document.createElement('tr');
+                
+                const cell1 = document.createElement('td');
+                const rollNoCell1 = document.createElement('td');
+                const classCell1 = document.createElement('td');
+                const resultCell1 = document.createElement('td');
+                
+                const cell2 = document.createElement('td');
+                const rollNoCell2 = document.createElement('td');
+                const classCell2 = document.createElement('td');
+                const resultCell2 = document.createElement('td');
+
+                cell1.textContent = items[i].name;
+                rollNoCell1.textContent = items[i].rollNo; // Display Roll No
+                classCell1.textContent = items[i].class; // Display Class
+                resultCell1.textContent = formatResult(items[i].status);
+
+                row.appendChild(cell1);
+                row.appendChild(rollNoCell1);
+                row.appendChild(classCell1);
+                row.appendChild(resultCell1);
+
+                if (i + 1 < items.length) {
+                    cell2.textContent = items[i + 1].name;
+                    rollNoCell2.textContent = items[i + 1].rollNo; // Display Roll No
+                    classCell2.textContent = items[i + 1].class; // Display Class
+                    resultCell2.textContent = formatResult(items[i + 1].status);
+                } else {
+                    cell2.textContent = '';
+                    rollNoCell2.textContent = '';
+                    classCell2.textContent = '';
+                    resultCell2.textContent = '';
+                }
+
+                row.appendChild(cell2);
+                row.appendChild(rollNoCell2);
+                row.appendChild(classCell2);
+                row.appendChild(resultCell2);
+
+                displayList.appendChild(row);
+            }
+        }
+
+        // Format the result status
+        function formatResult(status) {
+            switch (status) {
+                case 'checkmate':
+                    return 'Win by Checkmate';
+                case 'timeout':
+                    return 'Win by Timeout';
+                case 'playing':
+                    return 'Playing';
+                case 'lose':
+                    return 'Lose';
+                default:
+                    return 'Unknown';
+            }
+        }
+
+        function displayDateTime() {
+            const dateTime = localStorage.getItem('dateTime4');
+            const dateTimeDisplay = document.getElementById('dateTimeDisplay');
+            if (dateTime) {
+                dateTimeDisplay.textContent = ` ${new Date(dateTime).toLocaleString()}`;
+            } else {
+                dateTimeDisplay.textContent = 'No date and time saved.';
+            }
+        }
+
+        function displayWinner() {
+            const winnerDisplay = document.getElementById('winnerDisplay');
+            const winner = localStorage.getItem('winner4');
+            if (winner) {
+                winnerDisplay.textContent = `Winner: ${winner}`;
+            } else {
+                winnerDisplay.textContent = 'No winner has been set.';
+            }
+        }
+
+        // Refresh the page by reloading data
+        function refreshPage() {
+            displayItems();
+            displayDateTime();
+            displayWinner();
+        }
+
+        window.onload = function() {
+            displayItems();
+            displayDateTime();
+            displayWinner();
+        };
+    </script>
+</body>
+</html>

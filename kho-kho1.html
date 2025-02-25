@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Page</title>
+    <style>
+       /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("kho-kho5.jpg");
+    background-size: cover; /* Ensures the image covers the entire screen */
+    background-position: center center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the image fixed during scrolling */
+    color: white;
+    padding: 20px;
+    height: 100vh; /* Ensures the body takes up the full viewport height */
+}
+
+/* Dashboard Styles */
+.dashboard {
+    margin-bottom: 20px;
+}
+
+.dashboard a {
+    font-size: 30px;
+    text-decoration: none;
+    color: white;
+    margin-right: 15px;
+    font-family: "Times New Roman", serif;
+    font-weight: 100;
+    background-color: black;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dashboard a:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Form Styles */
+form {
+    background-color: rgba(0, 0, 0, 0.6); /* Slight transparency */
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
+}
+
+.input-style, .input-style1, .input-style3 {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+}
+
+.input-style:focus, .input-style1:focus, .input-style3:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* Button Styles */
+.button1, .button2, .button3 {
+    background-color: black;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+.button1:hover, .button2:hover, .button3:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid black;
+    font-size: 16px;
+    color: black;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.font {
+    font-weight: normal;
+}
+
+/* Remove Button Styles */
+.remove-button {
+    background-color: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.remove-button:hover {
+    background-color: #d32f2f;
+}
+
+/* Winner and Date Display Styles */
+#winnerDisplay, #displaydatetime {
+    margin-top: 20px;
+    font-size: 18px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#winnerDisplay button, #displaydatetime button {
+    margin-left: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard a {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+
+    /* Form Inputs */
+    .input-style, .input-style1, .input-style3 {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    /* Buttons */
+    .button1, .button2, .button3 {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    /* Table */
+    th, td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    #winnerDisplay, #displaydatetime {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .input-style, .input-style1, .input-style3 {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    .button1, .button2, .button3 {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    th, td {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
+ #searchInput {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+        }
+
+        #searchInput:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+   <div class="dashboard">
+        <a href="index.html">homepage</a>
+        <a href="kho-kho2.html" class="link">Check Name</a>   
+    </div>
+    <form id="inputForm">
+        <input type="text" id="userInput" placeholder="Enter class" class="input-style" required>
+        <input type="number" id="userScore" placeholder="Enter team score" class="input-style" required>
+        <input type="text" id="players" placeholder="Eg. player1/roll no.,player2/roll no." class="input-style" required>
+        <button type="button" class="button1" onclick="addItem()">Add Team</button>
+    </form>
+
+    <form id="dateTimeForm">
+        <input type="datetime-local" id="dateTimeInput" class="input-style1" required>
+        <button type="button" class="button1" onclick="saveDateTime()">Save Date and Time</button>
+    </form>
+
+    <form id="winnerForm">
+        <input type="text" id="winnerInput" placeholder="Eg.Eg.1:-boysteam/class,2:-boysteam,1:-girlsteam/class,2:-girlsteam/class" class="input-style" required>
+        <button type="button" class="button2" onclick="saveWinner()">Save Winner</button>
+    </form>
+<input type="text" id="searchInput" placeholder="Search player name..." onkeyup="filterTable()">
+
+    <h2>Recent Teams</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Team Name</th>
+                <th>Score</th>
+                <th>Players</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="itemList"></tbody>
+    </table>
+
+    <div id="winnerDisplay"></div>
+    <div id="displaydatetime"></div>
+
+    <script>
+function addItem() {
+    const name = document.getElementById('userInput').value.trim();
+    const score = document.getElementById('userScore').value.trim();
+    const playersInput = document.getElementById('players').value.trim();
+
+    if (!name || !isNaN(name)) {
+        alert('Please enter a valid team name.');
+        return;
+    }
+
+    if (!score || isNaN(score) || score < 0) {
+        alert('Please enter a valid score.');
+        return;
+    }
+
+    let playerArray = playersInput.split(',').map(player => player.trim());
+    
+    if (playerArray.length !== 9) {
+        alert('Please enter exactly 9 players with roll numbers (Format: player/rollno).');
+        return;
+    }
+
+    let uniquePlayers = new Set();
+    
+    for (let player of playerArray) {
+        if (!player.includes('/')) {
+            alert(`Invalid format: "${player}". Please use "player/rollno" format.`);
+            return;
+        }
+        if (uniquePlayers.has(player.toLowerCase())) {
+            alert(`Duplicate entry: "${player}" is repeated in the same team.`);
+            return;
+        }
+        uniquePlayers.add(player.toLowerCase());
+    }
+    
+    // Check for duplicate players across all teams
+    const items = JSON.parse(localStorage.getItem('items7')) || [];
+    let existingPlayers = new Set();
+
+    items.forEach(team => {
+        team.players.forEach(player => existingPlayers.add(player.toLowerCase())); 
+    });
+
+    for (let player of playerArray) {
+        if (existingPlayers.has(player.toLowerCase())) {
+            alert(`Duplicate entry: "${player}" already exists in another team.`);
+            return;
+        }
+    }
+
+    // Add new team to local storage
+    items.push({
+        name,
+        score,
+        players: playerArray
+    });
+    localStorage.setItem('items7', JSON.stringify(items));
+
+    updateItemList();
+    document.getElementById('inputForm').reset();
+}
+
+        function updateItemList() {
+            const items = JSON.parse(localStorage.getItem('items7')) || [];
+            const itemList = document.getElementById('itemList');
+            itemList.innerHTML = '';
+
+            items.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.name}</td>
+                    <td><input type="number" value="${item.score}" onchange="updateScore(${index}, this.value)" /></td>
+                    <td>${item.players.join(', ')}</td>
+                    <td><button class="remove-button" onclick="removeItem(${index})">Remove</button></td>
+                `;
+                itemList.appendChild(row);
+            });
+        }
+
+        function removeItem(index) {
+            const items = JSON.parse(localStorage.getItem('items7')) || [];
+            items.splice(index, 1);
+            localStorage.setItem('items7', JSON.stringify(items));
+            updateItemList();
+        }
+
+        function updateScore(index, newScore) {
+            const items = JSON.parse(localStorage.getItem('items7')) || [];
+            items[index].score = newScore;
+            localStorage.setItem('items7', JSON.stringify(items));
+        }
+function saveDateTime() {
+            const dateTimeInput = document.getElementById('dateTimeInput').value;
+            if (dateTimeInput) {
+                localStorage.setItem('dateTime6', dateTimeInput);
+                 displaydatetime();
+            }
+        }
+            
+        function saveWinner() {
+            const winnerInput = document.getElementById('winnerInput').value.trim();
+            if (winnerInput) {
+                localStorage.setItem('winner6', winnerInput);
+                displayWinner();
+            }
+        }
+        function displayWinner() {
+            const winnerDisplay = document.getElementById('winnerDisplay');
+            const winner = localStorage.getItem('winner6');
+            if (winner) {
+                winnerDisplay.innerHTML = `Winner: ${winner} <button class="remove-button" onclick="removeWinner()">Remove</button>`;
+            } else {
+                winnerDisplay.textContent = '';
+            }
+        }
+function displaydatetime() {
+    const datetimedisplay = document.getElementById('displaydatetime');
+    const dateTime = localStorage.getItem('dateTime6');
+    if (dateTime) {
+        datetimedisplay.innerHTML = `Date and Time: ${dateTime} <button class="remove-button" onclick="removeDateTime()">Remove</button>`;
+    } else {
+        datetimedisplay.textContent = '';
+    }
+}
+        
+        function removeWinner() {
+            localStorage.removeItem('winner6');
+            displayWinner();
+        }
+
+       function removeDateTime() {
+        localStorage.removeItem('dateTime6');
+        displaydatetime();
+    }
+ function filterTable() {
+            const searchValue = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#itemTable tbody tr');
+
+            rows.forEach(row => {
+                const playerName = row.querySelector('td:first-child').textContent.toLowerCase();
+                row.style.display = playerName.includes(searchValue) ? '' : 'none';
+            });
+        }
+        window.onload = function() {
+            updateItemList();
+            displayWinner();
+            displaydatetime();
+        };
+        document.addEventListener('DOMContentLoaded', updateItemList);
+    </script>
+</body>
+</html>

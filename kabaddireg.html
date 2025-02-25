@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Input Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    /* General Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Body Styles */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color:black;
+        background-size: cover;
+        background-position: center center;
+        background-attachment: fixed;
+        color: white;
+        padding: 20px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    /* Dashboard Styles */
+    .dashboard {
+        margin-bottom: 30px;
+    }
+
+    .dashboard a {
+        font-size: 22px;
+        text-decoration: none;
+        color: white;
+        margin-right: 20px;
+        font-family: "Times New Roman", serif;
+        font-weight: 500;
+        background-color: #333;
+        padding: 12px 25px;
+        border-radius: 6px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .dashboard a:hover {
+        background-color: white;
+        color: black;
+    }
+
+    /* Form Styles */
+    form {
+        background-color: #111;
+        padding: 30px;
+        margin-bottom: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .input-style {
+        width: 100%;
+        padding: 14px;
+        margin-bottom: 20px;
+        border: 1px solid #444;
+        border-radius: 8px;
+        font-size: 16px;
+        background-color: #222;
+        color: #fff;
+        transition: border-color 0.3s ease;
+    }
+
+    .input-style:focus {
+        border-color: #888;
+        outline: none;
+    }
+
+    /* Button Styles */
+    .button {
+        background-color: #333;
+        color: white;
+        padding: 14px 25px;
+        border: none;
+        border-radius: 8px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .button:hover {
+        background-color: #555;
+        color: white;
+    }
+
+    /* Table Styles */
+    table {
+        width: 100%;
+        margin-top: 30px;
+        background-color: #111;
+        border-collapse: collapse;
+        border-radius: 8px;
+        overflow: hidden;
+        color: #fff;
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    }
+
+    table thead {
+        background-color: #333;
+        color: white;
+    }
+
+    table th, table td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #444;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #222;
+    }
+
+    table tr:hover {
+        background-color: #555;
+    }
+
+    /* Player Count Display */
+    #playerCount {
+        margin-top: 15px;
+        font-size: 14px;
+        color: white;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .dashboard a {
+            font-size: 18px;
+            padding: 8px 18px;
+        }
+
+        .button {
+            font-size: 16px;
+            padding: 12px 20px;
+        }
+
+        .input-style {
+            font-size: 14px;
+            padding: 10px;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="dashboard">
+        <a href="index.html">homepage</a>
+        <a href="kabaddi2.html" class="link">Check Name</a>   
+    </div>
+    
+    <form id="inputForm">
+        <input type="text" id="userInput" name="userInput" placeholder="Enter class" class="input-style" required><br><br>
+        <input type="text" id="players" name="players" placeholder="Eg.player1/roll no.,player2/roll no." class="input-style" required oninput="updatePlayerCount()"><br><br>
+        <div id="playerCount">Players entered: 0/7</div>
+        <button type="button" class="button" onclick="addItem()">Add Team</button>
+    </form>
+    
+    <h2>Recent Teams</h2>
+    <table id="itemTable">
+        <thead>
+            <tr>
+                <th>Team</th>
+                <th>Players</th>
+            </tr>
+        </thead>
+        <tbody id="itemList"></tbody>
+    </table>
+
+    <div id="winnerDisplay"></div>
+    <div id="displaydatetime"></div>   
+
+    <script>
+function addItem() {
+    const input = document.getElementById('userInput');
+    const players = document.getElementById('players');
+
+    const newItem = input.value.trim();
+    const newPlayers = players.value.trim();
+
+    if (!newItem || !isNaN(newItem)) {
+        alert('Please enter a valid team name (non-numeric).');
+        return;
+    }
+
+    let items = JSON.parse(localStorage.getItem('items4')) || [];
+
+    if (items.some(team => team.name.toLowerCase() === newItem.toLowerCase())) {
+        alert('Team name must be unique.');
+        return;
+    }
+
+    if (!newPlayers) {
+        alert('Please enter players in the format: Name/RollNo (comma-separated).');
+        return;
+    }
+
+     const playerList = newPlayers.split(',').map(player => player.trim());
+                if (playerList.length !== 7) {
+                    alert('You must enter exactly 7 players.');
+                    return;
+                }
+
+    let uniqueNames = new Set();
+    let uniqueRollNos = new Set();
+
+    // Check existing names and roll numbers in localStorage
+    let existingNames = new Set();
+    let existingRollNos = new Set();
+
+    items.forEach(team => {
+        team.players.forEach(player => {
+            let parts = player.split('/');
+            existingNames.add(parts[0].trim().toLowerCase());
+            existingRollNos.add(parts[1].trim());
+        });
+    });
+
+    for (let player of playerArray) {
+        let parts = player.split('/');
+        if (parts.length !== 2) {
+            alert(`Invalid format for "${player}". Use Name/RollNo.`);
+            return;
+        }
+
+        let name = parts[0].trim();
+        let rollNo = parts[1].trim();
+
+        if (!/^[A-Za-z\s]+$/.test(name)) {
+            alert(`Invalid name "${name}". Only alphabets and spaces are allowed.`);
+            return;
+        }
+        if (!/^\d+$/.test(rollNo)) {
+            alert(`Invalid roll number "${rollNo}". Only numbers are allowed.`);
+            return;
+        }
+        if (uniqueNames.has(name.toLowerCase()) || existingNames.has(name.toLowerCase())) {
+            alert(`Duplicate name "${name}" is not allowed.`);
+            return;
+        }
+        if (uniqueRollNos.has(rollNo) || existingRollNos.has(rollNo)) {
+            alert(`Duplicate roll number "${rollNo}" is not allowed.`);
+            return;
+        }
+
+        uniqueNames.add(name.toLowerCase());
+        uniqueRollNos.add(rollNo);
+    }
+
+    // Save team to localStorage
+    items.push({
+        name: newItem,
+        players: playerArray
+    });
+    localStorage.setItem('items4', JSON.stringify(items));
+
+    input.value = '';
+    players.value = '';
+
+    updateItemList();
+    updatePlayerCount();
+}
+        function isDuplicate(newItem) {
+            const items = JSON.parse(localStorage.getItem('items4')) || [];
+            return items.some(item => item.name.toLowerCase() === newItem.toLowerCase());
+        }
+
+        function hasDuplicatePlayers(players) {
+            const playerSet = new Set(players);
+            return playerSet.size !== players.length;
+        }
+
+        function updateItemList() {
+            const itemList = document.getElementById('itemList');
+            itemList.innerHTML = '';
+            const items = JSON.parse(localStorage.getItem('items4')) || [];
+
+            items.forEach((item) => {
+                const row = document.createElement('tr');
+                
+                const cell1 = document.createElement('td');
+                const playersCell = document.createElement('td');
+
+                cell1.textContent = item.name;
+                playersCell.textContent = item.players.join(', '); // Join players with a comma
+
+                row.appendChild(cell1);
+                row.appendChild(playersCell);
+
+                itemList.appendChild(row);
+            });
+        }
+
+        function updatePlayerCount() {
+            const playersInput = document.getElementById('players').value;
+            const playerArray = playersInput.split(',').map(player => player.trim()).filter(player => player);
+            const count = playerArray.length;
+            document.getElementById('playerCount').textContent = `Players entered: ${count}/7`;
+        }
+
+        document.addEventListener('DOMContentLoaded', updateItemList);
+    </script>
+</body>
+</html>

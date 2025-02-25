@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Players and Scores</title>
+    <style> * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styles */
+
+    body {
+    font-family: Arial, sans-serif;
+    background-image: url('tugofwar4.jpg');
+    background-color: #000; /* Fallback color */
+    color: #fff;
+    line-height: 1.6;
+    padding: 20px;
+
+    /* Background image adjustments */
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensures the image covers the entire viewport */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the background static during scrolling */
+}
+
+
+
+/* Header Styles */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #111;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #444;
+    font-size: 1rem;
+}
+
+th {
+    background-color: #222;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+    background-color: #333;
+}
+
+tr:hover {
+    background-color: #444;
+}
+
+/* Button Styles */
+button.refresh-btn {
+    display: block;
+    width: 150px;
+    margin: 0 auto 20px;
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button.refresh-btn:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+/* Date Time and Winner Container */
+#dateTimeContainer, #winnerContainer {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #111;
+    border: 1px solid #444;
+    border-radius: 4px;
+}
+
+#dateTimeContainer h2, #winnerContainer h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+#dateTimeContainer p, #winnerContainer p {
+    font-size: 1rem;
+    color: #ccc;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+
+    button.refresh-btn {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+
+    #dateTimeContainer, #winnerContainer {
+        padding: 15px;
+    }
+
+    #dateTimeContainer h2, #winnerContainer h2 {
+        font-size: 1.2rem;
+    }
+
+    #dateTimeContainer p, #winnerContainer p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    th, td {
+        font-size: 0.8rem;
+        padding: 8px;
+    }
+
+    button.refresh-btn {
+        font-size: 0.8rem;
+    }
+
+    #dateTimeContainer h2, #winnerContainer h2 {
+        font-size: 1rem;
+    }
+
+    #dateTimeContainer p, #winnerContainer p {
+        font-size: 0.8rem;
+    }
+}</style>
+</head>
+<body>
+    <h1>teams and Scores</h1>
+   
+    <table>
+        <thead>
+            <tr>
+                <th>team 1</th>
+                <th>Score 1</th>
+                <th>players</th>
+                <th>team 2</th>
+                <th>Score 2</th>
+                <th>players</th>
+            </tr>
+        </thead>
+        <tbody id="displayList"></tbody>
+    </table>
+ <button class="refresh-btn" onclick="refreshPage()">Refresh</button>
+    <div id="dateTimeContainer">
+        <h2>Date and Time</h2>
+        <p id="dateTimeDisplay">Loading...</p>
+    </div>
+    <div id="winnerContainer">
+        <h2>Winner</h2>
+        <p id="winnerDisplay">Loading winner...</p>
+    </div>
+    <script>
+        
+       function displayItems() {
+            const displayList = document.getElementById('displayList');
+            displayList.innerHTML = '';
+            const items = JSON.parse(localStorage.getItem('items9')) || [];
+
+            for (let i = 0; i < items.length; i += 2) {
+                const row = document.createElement('tr');
+
+                // Team 1 Data
+                const team1 = document.createElement('td');
+                const score1 = document.createElement('td');
+                const players1 = document.createElement('td');
+
+                // Team 2 Data
+                const team2 = document.createElement('td');
+                const score2 = document.createElement('td');
+                const players2 = document.createElement('td');
+
+                // Populate Team 1 Data
+                team1.textContent = items[i].name;
+                score1.textContent = items[i].score;
+                
+                // Create a list of players for Team 1
+                const playersList1 = document.createElement('ul');
+                items[i].players.forEach(player => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = player;
+                    playersList1.appendChild(listItem);
+                });
+                players1.appendChild(playersList1);
+
+                // Populate Team 2 Data (if available)
+                if (i + 1 < items.length) {
+                    team2.textContent = items[i + 1].name;
+                    score2.textContent = items[i + 1].score;
+                    
+                    // Create a list of players for Team 2
+                    const playersList2 = document.createElement('ul');
+                    items[i + 1].players.forEach(player => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = player;
+                        playersList2.appendChild(listItem);
+                    });
+                    players2.appendChild(playersList2);
+                } else {
+                    team2.textContent = '';
+                    score2.textContent = '';
+                    
+                }
+
+                // Append all cells to the row
+                row.appendChild(team1);
+                row.appendChild(score1);
+                row.appendChild(players1);
+                row.appendChild(team2);
+                row.appendChild(score2);
+                row.appendChild(players2);
+
+                // Append row to the table body
+                displayList.appendChild(row);
+            }
+        }
+
+      
+      
+        function displayDateTime() {
+            const dateTime = localStorage.getItem('dateTime10');
+            const dateTimeDisplay = document.getElementById('dateTimeDisplay');
+            if (dateTime) {
+                dateTimeDisplay.textContent = ` ${new Date(dateTime).toLocaleString()}`;
+            } else {
+                dateTimeDisplay.textContent = 'No date and time saved.';
+            }
+        }
+        function displayWinner() {
+            const winnerDisplay = document.getElementById('winnerDisplay');
+            const winner = localStorage.getItem('winner10');
+            if (winner) {
+                winnerDisplay.textContent = `Winner: ${winner}`;
+            } else {
+                winnerDisplay.textContent = 'No winner has been set.';
+            }
+        }
+
+      function refreshPage() {
+            displayItems();
+            displayDateTime();
+            displayWinner();
+        }
+        window.onload = function() {
+            displayItems();
+            displayDateTime();
+            displayWinner();
+        };
+    </script>
+</body>
+</html>

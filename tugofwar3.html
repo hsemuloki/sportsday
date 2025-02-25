@@ -1,0 +1,99 @@
+<html>
+    <head><title>kabaddi</title>
+        <style>  body{
+            background-image: url('tugofwar4.jpg');
+            background-repeat: no-repeat;
+            background-size:37cm;
+            background-attachment: fixed;
+           
+        }
+    .bt3 {
+    
+  width: 245px;
+  min-height: 45px;
+  color: #fff;
+  outline: none;
+  transition: 0.35s;
+  padding: 0px 7px;
+  background-color: #212121;
+  border-radius: 6px;
+  border: 2px solid #212121;
+  box-shadow: 6px 6px 10px rgba(0,0,0,1),
+  1px 1px 10px rgba(255, 255, 255, 0.6);
+}
+.bt3::placeholder {
+  color: #999;
+}
+.bt3:focus.bt3::placeholder {
+  transition: 0.3s;
+  opacity: 0;
+}
+.bt3:focus {
+  transform: scale(1.05);
+  box-shadow: 6px 6px 10px rgba(0,0,0,1),
+  1px 1px 10px rgba(255, 255, 255, 0.6),
+  inset 2px 2px 10px rgba(0,0,0,1),
+  inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+}
+.btn3 {
+  padding: 10px 35px;
+  cursor: pointer;
+  background-color: #212121;
+  border-radius: 6px;
+  border: 2px solid #212121;
+  box-shadow: 6px 6px 10px rgba(0,0,0,1),
+  1px 1px 10px rgba(255, 255, 255, 0.6);
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  transition: 0.35s;
+}
+.btn3:hover {
+  transform: scale(1.05);
+  box-shadow: 6px 6px 10px rgba(0,0,0,1),
+  1px 1px 10px rgba(255, 255, 255, 0.6),
+  inset 2px 2px 10px rgba(0,0,0,1),
+  inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+}
+
+.btn3:focus {
+  transform: scale(1.05);
+  box-shadow: 6px 6px 10px rgba(0,0,0,1),1px 1px 10px rgba(255, 255, 255, 0.6),inset 2px 2px 10px rgba(0,0,0,1),inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+}
+h1{
+    font-family: impact;
+    text-align: center;
+    color:white;
+}
+.container3 {
+    color:black;
+     border-radius: 15px;
+  box-shadow: inset 2px 2px 10px rgba(0,0,0,1),inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+    padding: 65px 45px;
+ text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 1000px){
+     body{
+            background-image: url('tugofwar4.jpg');
+            background-repeat: no-repeat;
+            background-size: COVER;
+            background-attachment: fixed;
+        }
+        
+}</style>
+    </head>
+<body>
+<h1>tugofwar login</h1>
+<form action="tugofwar.jsp" method="post">
+    <div class="container3">
+        <input type="text" name="txtName" placeholder="username" class="bt3"><br><br>
+        <input type="password" name="txtPass" placeholder="password" class="bt3"><br><br>
+<input type="submit" value="LOGIN" class="btn3">
+<input type="reset" class="btn3">
+    </div>
+    </form>
+
+</body>
+</html>

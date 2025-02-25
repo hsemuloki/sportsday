@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Team Management</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #000;
+                color: #fff;
+                text-align: center;
+            }
+            form {
+                margin: 20px auto;
+                padding: 20px;
+                background-color: #333;
+                border-radius: 8px;
+                width: 90%;
+                max-width: 400px;
+            }
+            input {
+                width: 100%;
+                padding: 10px;
+                margin: 10px -10px;
+                border: 1px solid #444;
+                border-radius: 5px;
+                background-color: #222;
+                color: #fff;
+            }
+            .button {
+                padding: 10px;
+                background-color: black;
+                color: white;
+                border: none;
+                cursor: pointer;
+                transition: 0.3s;
+                border-radius: 10px;
+            }
+            .button:hover {
+                background-color: white;
+                color: black;
+                
+            }
+            table {
+                margin: 20px auto;
+                width: 90%;
+                max-width: 800px;
+                border-collapse: collapse;
+                background-color: #222;
+                color: white;
+            }
+            th, td {
+                padding: 10px;
+                border: 1px solid #444;
+              
+            }
+            th {
+                background-color: gray;
+               
+            }
+            .dashboard a {
+        font-size: 22px;
+        text-decoration: none;
+        color: white;
+        margin-right: 20px;
+        font-family: "Times New Roman", serif;
+        font-weight: 500;
+        background-color: #333;
+        padding: 12px 25px;
+        border-radius: 6px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .dashboard a:hover {
+        background-color: white;
+        color: black;
+    }
+    
+        </style>
+    </head>
+    <body>
+        <div class="dashboard">
+    <a href="index.html">Homepage</a>
+    <a href="boxcricket2.html" class="link">Check Name</a>   
+</div>
+        <h1>Team Management</h1>
+        <form id="inputForm">
+            <input type="text" id="userInput" placeholder="Enter Team Name" required>
+            <input type="text" id="players" placeholder="Eg. Player1/101, Player2/102" required>
+            <button type="button" class="button" onclick="addItem()">Add Team</button>
+        </form>
+
+        <h2>Recent Teams</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Team</th>
+                    <th>Players</th>
+                </tr>
+            </thead>
+            <tbody id="itemList"></tbody>
+        </table>
+
+        <script>
+               document.addEventListener("DOMContentLoaded", updateItemList);
+
+            function addItem() {
+                const input = document.getElementById('userInput');
+                const players = document.getElementById('players');
+
+                const newItem = input.value.trim();
+                const newPlayers = players.value.trim();
+
+                if (!newItem || !isNaN(newItem)) {
+                    alert('Please enter a valid team name.');
+                    return;
+                }
+                if (isDuplicate(newItem)) {
+                    alert('Team name must be unique.');
+                    return;
+                }
+                if (!newPlayers) {
+                    alert('Please enter players in format: name/rollno, name/rollno');
+                    return;
+                }
+
+                const playerList = newPlayers.split(',').map(player => player.trim());
+                if (playerList.length !== 10) {
+                    alert('You must enter exactly 10 players.');
+                    return;
+                }
+
+                const validFormat = playerList.every(player => /^[A-Za-z]+\/\d+$/.test(player));
+                if (!validFormat) {
+                    alert('Each player must be in format: name/rollno (e.g., John/101, Jane/102)');
+                    return;
+                }
+
+                let items = JSON.parse(localStorage.getItem('items8')) || [];
+                items.push({ name: newItem, players: playerList });
+                localStorage.setItem('items8', JSON.stringify(items));
+
+                input.value = '';
+                players.value = '';
+
+                updateItemList();
+            }
+
+            function isDuplicate(newItem) {
+                const items = JSON.parse(localStorage.getItem('items8')) || [];
+                return items.some(item => item.name.toLowerCase() === newItem.toLowerCase());
+            }
+
+            function updateItemList() {
+                const itemList = document.getElementById('itemList');
+                itemList.innerHTML = '';
+                const items = JSON.parse(localStorage.getItem('items8')) || [];
+
+                items.forEach((item) => {
+                    const row = document.createElement('tr');
+                    const cell1 = document.createElement('td');
+                    const playersCell = document.createElement('td');
+
+                    cell1.textContent = item.name;
+                    playersCell.innerHTML = item.players.join('<br>');
+
+                    row.appendChild(cell1);
+                    row.appendChild(playersCell);
+                    itemList.appendChild(row);
+                });
+            }
+        
+        </script>
+    </body>
+</html>

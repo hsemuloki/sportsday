@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Page</title>
+    <style>* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("langdi.png");
+    background-size: cover; /* Ensures the image covers the entire screen */
+    background-position: center center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the image fixed during scrolling */
+    color: white;
+    padding: 20px;
+    height: 100vh; /* Ensures the body takes up the full viewport height */
+}
+
+/* Dashboard Styles */
+.dashboard {
+    margin-bottom: 20px;
+}
+
+.dashboard a {
+    font-size: 30px;
+    text-decoration: none;
+    color: white;
+    margin-right: 15px;
+    font-family: "Times New Roman", serif;
+    font-weight: 100;
+    background-color: black;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dashboard a:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Form Styles */
+form {
+    background-color: rgba(0, 0, 0, 0.6); /* Slight transparency */
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
+}
+
+.input-style, .input-style1, .input-style3 {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+}
+
+.input-style:focus, .input-style1:focus, .input-style3:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* Button Styles */
+.button1, .button2, .button3 {
+    background-color: black;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+.button1:hover, .button2:hover, .button3:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid black;
+    font-size: 16px;
+    color: black;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.font {
+    font-weight: normal;
+}
+
+/* Remove Button Styles */
+.remove-button {
+    background-color: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.remove-button:hover {
+    background-color: #d32f2f;
+}
+
+/* Winner and Date Display Styles */
+#winnerDisplay, #displaydatetime {
+    margin-top: 20px;
+    font-size: 18px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#winnerDisplay button, #displaydatetime button {
+    margin-left: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard a {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+
+    /* Form Inputs */
+    .input-style, .input-style1, .input-style3 {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    /* Buttons */
+    .button1, .button2, .button3 {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    /* Table */
+    th, td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    #winnerDisplay, #displaydatetime {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .input-style, .input-style1, .input-style3 {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    .button1, .button2, .button3 {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    th, td {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
+ #searchInput {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+        }
+
+        #searchInput:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+</style>
+</head>
+<body>
+   <div class="dashboard">
+        <a href="index.html">homepage</a>
+    <a href="langadi2.html" class="link">Check Name</a>   
+    </div>
+    
+    
+    <form id="inputForm">
+        <input type="text" id="userInput" name="userInput" placeholder="Enter class" class="input-style" required><br><br>
+        <input type="text" id="userScore" name="userScore" placeholder="Enter score" class="input-style" required><br><br>
+        <input type="text" id="players" name="players" placeholder="Eg.player1/roll no.,player2/roll no." class="input-style" required><br><br>
+
+        <button type="button" class="button1" onclick="addItem()">Add Player</button>
+    </form>
+    
+   
+    <form id="dateTimeForm">
+        <input type="datetime-local" id="dateTimeInput" class="input-style1" required><br><br>
+        <button type="button" class="button1" onclick="saveDateTime()">Save Date and Time</button>
+    </form>
+<form id="winnerForm">
+    <input type="text" id="winnerInput" placeholder="Eg.1:-boysteam/class,2:-boysteam/class,1:-girlsteam/class,2:-girlsteam/class" class="input-style"><br><br>
+        <button type="button" class="button2" onclick="saveWinner()">Save Winner</button>
+    </form>
+    <input type="text" id="searchInput" placeholder="Search player name..." onkeyup="filterTable()">
+
+    <h2>Recent teams</h2>
+    <table id="itemTable">
+        <thead>
+            <tr>
+              <th>team 1</th>
+                <th>Score 1</th>
+             
+               
+              <th>Players</th>
+                    <th>Actions</th>
+
+            </tr>
+        </thead>
+        <tbody id="itemList"></tbody>
+    </table>
+
+    
+      <div id="winnerDisplay"></div>
+      <div id="displaydatetime"></div>
+    <script>
+       
+       function addItem() {
+    const input = document.getElementById('userInput');
+    const score = document.getElementById('userScore');
+    const players = document.getElementById('players');
+
+    const newItem = input.value.trim();
+    const newScore = score.value.trim();
+    const newPlayers = players.value.trim();
+
+    // Validation
+    if (!newItem || isNaN(newItem) === false) {
+        alert('Please enter a valid team name (non-numeric).');
+        return;
+    }
+    if (isDuplicate(newItem)) {
+        alert('Team name must be unique.');
+        return;
+    }
+    if (!newScore || newScore < 0 || isNaN(newScore)) {
+        alert('Please enter a valid score.');
+        return;
+    }
+
+    const playerArray = newPlayers.split(',').map(player => player.trim());
+    if (playerArray.length > 6) {
+        alert('A team can have a maximum of 6 players.');
+        return;
+    }
+    if (!isValidPlayerFormat(playerArray)) {
+        alert('Each player must be in the format Name/RollNo.');
+        return;
+    }
+    if (hasDuplicatePlayers(playerArray)) {
+        alert('Player names and roll numbers must be unique across all teams.');
+        return;
+    }
+
+    // Add to localStorage
+    let items = JSON.parse(localStorage.getItem('items10')) || [];
+    items.push({
+        name: newItem,
+        score: newScore,
+        players: playerArray
+    });
+    localStorage.setItem('items10', JSON.stringify(items));
+
+    // Clear form inputs
+    input.value = '';
+    score.value = '';
+    players.value = '';
+
+    // Update table
+    updateItemList();
+}
+
+function isDuplicate(newItem) {
+    const items = JSON.parse(localStorage.getItem('items10')) || [];
+    return items.some(item => item.name.toLowerCase() === newItem.toLowerCase());
+}
+
+function isValidPlayerFormat(players) {
+    return players.every(player => /^\w+\/\d+$/.test(player));
+}
+
+function hasDuplicatePlayers(newPlayers) {
+    let items = JSON.parse(localStorage.getItem('items10')) || [];
+    let allPlayers = items.flatMap(item => item.players);
+    let allNames = new Set();
+    let allRollNos = new Set();
+
+    for (let player of allPlayers.concat(newPlayers)) {
+        const [name, rollNo] = player.split('/');
+        if (allNames.has(name) || allRollNos.has(rollNo)) {
+            return true;
+        }
+        allNames.add(name);
+        allRollNos.add(rollNo);
+    }
+    return false;
+}
+
+function updateItemList() {
+    const itemList = document.getElementById('itemList');
+    itemList.innerHTML = '';
+    const items = JSON.parse(localStorage.getItem('items10')) || [];
+
+    items.forEach((item, index) => {
+        const row = document.createElement('tr');
+        
+        const cell1 = document.createElement('td');
+        const scoreCell = document.createElement('td');
+        const playersCell = document.createElement('td');
+        const actionsCell = document.createElement('td');
+
+        cell1.textContent = item.name;
+        scoreCell.innerHTML = `<input type='number' value='${item.score}' onchange='updateScore(${index}, this.value)' />`;
+        playersCell.innerHTML = item.players.map((player, i) =>
+            `<input type="text" value="${player}" onchange="updatePlayer(${index}, ${i}, this.value)" />`
+        ).join('<br>');
+
+        actionsCell.appendChild(createRemoveButton(index));
+
+        row.appendChild(cell1);
+        row.appendChild(scoreCell);
+        row.appendChild(playersCell);
+        row.appendChild(actionsCell);
+
+        itemList.appendChild(row);
+    });
+}
+
+function updateScore(index, newScore) {
+    let items = JSON.parse(localStorage.getItem('items10')) || [];
+    items[index].score = newScore;
+    localStorage.setItem('items10', JSON.stringify(items));
+}
+
+function updatePlayer(index, playerIndex, newPlayer) {
+    if (!/^\w+\/\d+$/.test(newPlayer)) {
+        alert('Invalid format! Use Name/RollNo.');
+        return;
+    }
+    let items = JSON.parse(localStorage.getItem('items10')) || [];
+    const existingPlayers = items.flatMap(item => item.players);
+    if (existingPlayers.includes(newPlayer)) {
+        alert('Duplicate player entry!');
+        return;
+    }
+    items[index].players[playerIndex] = newPlayer;
+    localStorage.setItem('items10', JSON.stringify(items));
+}
+
+function createRemoveButton(index) {
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'Remove';
+    removeButton.className = 'remove-button';
+    removeButton.onclick = () => removeItem(index);
+    return removeButton;
+}
+
+function removeItem(index) {
+    let items = JSON.parse(localStorage.getItem('items10')) || [];
+    items.splice(index, 1);
+    localStorage.setItem('items10', JSON.stringify(items));
+    updateItemList();
+}
+
+// Initialize table on page load
+window.onload = function() {
+    updateItemList();
+};
+
+    </script>
+</body>
+</html>

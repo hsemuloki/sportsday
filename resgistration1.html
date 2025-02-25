@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Registration</title>
+    <style>
+        /* General styles for the body */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000; /* Black background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            color: #ffffff;
+        }
+
+        /* Background animation */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Center form section */
+        .form-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Form container */
+      .container {
+    background-color: #121212; /* Dark gray background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    padding: 25px;
+    width: 360px; /* Fixed width for consistent size */
+    min-height: 400px; /* Minimum height to prevent shrinking */
+    text-align: center;
+    box-sizing: border-box; /* Ensure padding doesn't add to width/height */
+}
+
+
+        /* Form heading */
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffffff; /* White text */
+        }
+
+        /* Input fields */
+        .input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px -15px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background-color: #333333; /* Darker background for inputs */
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: #ff5722; /* Orange border color */
+            box-shadow: 0 0 5px #ff5722; /* Orange focus shadow */
+        }
+
+        /* Buttons */
+        .sub1, .btn, .sub8 {
+            width: 90%;
+            padding: 10px ;
+            margin-top: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: black; /* Orange button background */
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .sub1:hover, .btn:hover, .sub8:hover {
+            background-color: white;
+            color: black;
+        }
+
+        /* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        width: 300px; /* Adjust slightly for smaller screens */
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .input, .sub1, .btn, .sub8 {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 260px; /* Smaller size for very small screens */
+    }
+
+    h1 {
+        font-size: 18px;
+    }
+
+    .input, .sub1, .btn, .sub8 {
+        font-size: 12px;
+    }
+}
+    </style>
+</head>
+<body>
+    <canvas id="background"></canvas>
+    <div class="form-section" id="register-section">
+        <form action="registration2.jsp" onsubmit="return validateForm()" method="post">
+            <h1>New Registration</h1>
+            <center> <div class="container">
+                <input type="text" name="txtName" placeholder="Enter staff Name" class="input" id="staffName" required><br>
+                <input type="password" name="txtPass1" placeholder="Enter Password" class="input" id="password" required><br>
+                <input type="password" name="txtPass2" placeholder="Re-Enter Password" class="input" id="confirmPassword" required><br><br>
+                <input type="submit" value="Register" class="sub1"><br>
+                <input type="reset" class="sub1">
+                </div></center>
+        </form>
+        <center><button class="sub8" onClick="showDeleteSection()">Login</button></center>
+    </div>
+
+    <div class="form-section" id="delete-section" style="display:none;">
+        <form action="studentslogin.jsp" method="post">
+            <h1>Login</h1>
+            <center> <div class="container">
+                <input type="text" name="txtName" class="input" placeholder="Username"><br><br>
+                <input type="password" name="txtPass" class="input" placeholder="Password"><br><br>
+                <input type="submit" value="Login" class="btn">
+                <input type="reset" class="btn"><br><br>
+                </div></center>
+        </form>
+        <center><button class="sub8" onClick="showRegisterSection()">Go to Registration</button></center>
+    </div>
+    
+    <script>
+        // Switch sections
+        function showDeleteSection() {
+            document.getElementById('register-section').style.display = 'none';
+            document.getElementById('delete-section').style.display = 'block';
+        }
+
+        function showRegisterSection() {
+            document.getElementById('register-section').style.display = 'block';
+            document.getElementById('delete-section').style.display = 'none';
+        }
+
+        // Form validation
+        function validateForm() {
+            const staffName = document.getElementById('staffName').value;
+            const nameRegex = /^[a-zA-Z\s]+$/;
+            if (!nameRegex.test(staffName)) {
+                alert("Name can only contain letters.");
+                return false;
+            }
+
+            const password = document.getElementById('password').value;
+            const passwordRegex = /^[0-9]+$/;
+            if (!passwordRegex.test(password)) {
+                alert("Password can only contain numbers.");
+                return false;
+            }
+
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+            return true;
+        }
+ const canvas = document.getElementById("background");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particlesArray = [];
+    const maxParticles = 100;
+
+    class Particle {
+        constructor(x, y, size, speedX, speedY) {
+            this.x = x;
+            this.y = y;
+            this.size = size;
+            this.speedX = speedX;
+            this.speedY = speedY;
+        }
+
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+
+            // Reinitialize particle when size becomes too small
+            if (this.size > 0.2) {
+                this.size -= 0.02;
+            } else {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+            }
+        }
+
+        draw() {
+            ctx.fillStyle = "rgba(255,255,255,0.8)";
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        while (particlesArray.length < maxParticles) {
+            const size = Math.random() * 5 + 1;
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const speedX = Math.random() * 3 - 1.5;
+            const speedY = Math.random() * 3 - 1.5;
+            particlesArray.push(new Particle(x, y, size, speedX, speedY));
+        }
+    }
+
+    function handleParticles() {
+        for (let i = 0; i < particlesArray.length; i++) {
+            particlesArray[i].update();
+            particlesArray[i].draw();
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        handleParticles();
+        requestAnimationFrame(animate);
+    }
+
+    // Handle window resize
+    window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        particlesArray.length = 0; // Clear existing particles
+        initParticles(); // Reinitialize particles for new canvas size
+    });
+
+    initParticles();
+    animate();
+    </script>
+</body>
+</html>

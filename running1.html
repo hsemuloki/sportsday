@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Page</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("running5.jpg");
+            background-size: cover; /* Ensures the image covers the entire screen */
+            background-position: center center; /* Centers the image */
+            background-attachment: fixed; /* Keeps the image fixed during scrolling */
+            color: white;
+            padding: 20px;
+            height: 100vh; /* Ensures the body takes up the full viewport height */
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            margin-bottom: 20px;
+        }
+
+        .dashboard a {
+            font-size: 30px;
+            text-decoration: none;
+            color: white;
+            margin-right: 15px;
+            font-family: "Times New Roman", serif;
+            font-weight: 100;
+            background-color: black;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dashboard a:hover {
+            background-color: white;
+            color: black;
+        }
+
+        /* Form Styles */
+        form {
+            background-color: rgba(0, 0, 0, 0.6); /* Slight transparency */
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
+        }
+
+        .input-style, .input-style1, .input-style3 {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+        }
+
+        .input-style:focus, .input-style1:focus, .input-style3:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        /* Button Styles */
+        .button1, .button2, .button3 {
+            background-color: black;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .button1:hover, .button2:hover, .button3:hover {
+            background-color: white;
+            color: black;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid black;
+            font-size: 16px;
+            color: black;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .font {
+            font-weight: normal;
+        }
+
+        /* Remove Button Styles */
+        .remove-button {
+            background-color: #f44336;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .remove-button:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Winner and Date Display Styles */
+        #winnerDisplay, #displaydatetime {
+            margin-top: 20px;
+            font-size: 18px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #winnerDisplay button, #displaydatetime button {
+            margin-left: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard a {
+                display: block;
+                margin-bottom: 10px;
+                font-size: 20px;
+            }
+
+            /* Form Inputs */
+            .input-style, .input-style1, .input-style3 {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            /* Buttons */
+            .button1, .button2, .button3 {
+                width: 100%;
+                padding: 10px;
+                font-size: 16px;
+            }
+
+            /* Table */
+            th, td {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            #winnerDisplay, #displaydatetime {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .input-style, .input-style1, .input-style3 {
+                font-size: 13px;
+                padding: 8px;
+            }
+
+            .button1, .button2, .button3 {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            th, td {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
+        #searchInput {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+        }
+
+        #searchInput:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <a href="index.html">homepage</a>
+        <a href="running2.html" class="link">Check Name</a>
+    </div>
+
+    <form id="inputForm">
+        <input type="text" id="userInput" name="userInput" placeholder="Enter name" class="input-style" required><br><br>
+        <input type="text" id="userClass" name="userClass" placeholder="Enter class" class="input-style" required><br><br>
+        <input type="text" id="userRollNo" name="userRollNo" placeholder="Enter roll number" class="input-style" required><br><br>
+        <select id="userStatus" name="userStatus" class="input-style" required>
+            <option value="runner">runner</option>
+            <option value="first">first</option>
+            <option value="second">second</option>
+            <option value="third">third</option>
+            <option value="lose">lose</option>
+        </select><br><br>
+
+        <button type="button" class="button1" onclick="addItem()">Add Player</button>
+    </form>
+
+    <form id="dateTimeForm">
+        <input type="datetime-local" id="dateTimeInput" class="input-style1" required><br><br>
+        <button type="button" class="button1" onclick="saveDateTime()">Save Date and Time</button>
+    </form>
+    <div id="winnerDisplay"></div>
+    <div id="displaydatetime"></div>
+
+    <form id="winnerForm">
+        <input type="text" id="winnerInput" placeholder="Eg.1:-boysplayer/class,2:-boysplayer/class,1:-girlsplayer/class,2:-girlsplayer/class" class="input-style3"><br><br>
+        <button type="button" class="button3" onclick="saveWinner()">Save Winner</button>
+    </form>
+<input type="text" id="searchInput" placeholder="Search player name..." onkeyup="filterTable()">
+
+    <h2>Recent Players</h2>
+    <table id="itemTable">
+        <thead>
+            <tr>
+                <th>Player Name</th>
+                <th>Class</th>
+                <th>Roll No</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="itemList"></tbody>
+    </table>
+
+    <script>
+      function addItem() {
+    const input = document.getElementById('userInput');
+    const userClass = document.getElementById('userClass');
+    const userRollNo = document.getElementById('userRollNo');
+    const status = document.getElementById('userStatus');
+
+    const newItem = input.value.trim();
+    const newClass = userClass.value.trim();
+    const newRollNo = userRollNo.value.trim();
+    const newStatus = status.value.trim();
+
+    // Validate that newItem, newClass, newRollNo, and newStatus are valid
+    if (isValidString(newItem) && isValidString(newClass) && isValidRollNo(newRollNo) && isValidString(newStatus)) {
+        // Retrieve existing items from localStorage
+        let items = JSON.parse(localStorage.getItem('items2')) || [];
+
+        // Check for duplicate names
+        if (isDuplicateName(newItem, items)) {
+            alert('This name is already taken. Please choose a different name.');
+            return; // Exit the function if a duplicate name is found
+        }
+
+        // Check for duplicate roll numbers
+        if (isDuplicateRollNo(newRollNo, items)) {
+            alert('This roll number is already taken. Please enter a unique roll number.');
+            return; // Exit the function if a duplicate roll number is found
+        }
+
+        // Add the new item if valid and no duplicates
+        items.push({ name: newItem, class: newClass, rollNo: newRollNo, status: newStatus });
+        localStorage.setItem('items2', JSON.stringify(items));
+
+        // Clear input fields
+        input.value = '';
+        userClass.value = '';
+        userRollNo.value = '';
+        status.value = 'runner'; // Reset to default value
+
+        updateItemList();
+    } else {
+        alert('Please enter valid strings for name, class, and status (letters only). Roll No must be numeric.');
+    }
+}
+
+// Function to check if the string contains only alphabetic characters and spaces
+function isValidString(str) {
+    const regex = /^[A-Za-z\s]+$/;
+    return regex.test(str);
+}
+
+// Function to check if the roll number is valid (numeric)
+function isValidRollNo(str) {
+    const regex = /^[0-9]+$/;
+    return regex.test(str);
+}
+
+// Function to check if the name is a duplicate
+function isDuplicateName(newName, items) {
+    return items.some(item => item.name.toLowerCase() === newName.toLowerCase());
+}
+
+// Function to check if the roll number is a duplicate
+function isDuplicateRollNo(rollNo, items) {
+    return items.some(item => item.rollNo === rollNo);
+}
+
+        function updateItemList() {
+            const itemList = document.getElementById('itemList');
+            itemList.innerHTML = '';
+            const items = JSON.parse(localStorage.getItem('items2')) || [];
+
+            for (let i = 0; i < items.length; i++) {
+                const row = document.createElement('tr');
+
+                const cell1 = document.createElement('td');
+                const cell2 = document.createElement('td');
+                const cell3 = document.createElement('td');
+                const statusCell = document.createElement('td');
+
+                cell1.className = 'font';
+                cell1.textContent = items[i].name;
+                cell2.textContent = items[i].class;
+                cell3.textContent = items[i].rollNo;
+
+                statusCell.innerHTML = `<select onchange='updateStatus(${i}, this.value)'>
+                    <option value="runner" ${items[i].status === 'runner' ? 'selected' : ''}>runner</option>
+                    <option value="first" ${items[i].status === 'first' ? 'selected' : ''}>first</option>
+                    <option value="second" ${items[i].status === 'second' ? 'selected' : ''}>second</option>
+                    <option value="third" ${items[i].status === 'third' ? 'selected' : ''}>third</option>
+                    <option value="lose" ${items[i].status === 'lose' ? 'selected' : ''}>Lose</option>
+                </select>`;
+                cell1.appendChild(createRemoveButton(i));
+                row.appendChild(cell1);
+                row.appendChild(cell2);
+                row.appendChild(cell3);
+                row.appendChild(statusCell);
+
+                itemList.appendChild(row);
+            }
+        }
+
+        function updateStatus(index, newStatus) {
+            let items = JSON.parse(localStorage.getItem('items2')) || [];
+            if (isValidString(newStatus)) {
+                items[index].status = newStatus;
+                localStorage.setItem('items2', JSON.stringify(items));
+            } else {
+                alert('Status must be a valid string (letters only).');
+            }
+        }
+
+        function createRemoveButton(index) {
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            removeButton.className = 'remove-button';
+            removeButton.onclick = () => removeItem(index);
+            return removeButton;
+        }
+
+        function removeItem(index) {
+            let items = JSON.parse(localStorage.getItem('items2')) || [];
+            items.splice(index, 1);
+            localStorage.setItem('items2', JSON.stringify(items));
+            updateItemList();
+        }
+
+        function saveDateTime() {
+            const dateTimeInput = document.getElementById('dateTimeInput').value;
+            if (dateTimeInput) {
+                localStorage.setItem('dateTime8', dateTimeInput);
+                displaydatetime();
+            }
+        }
+
+        function saveWinner() {
+            const winnerInput = document.getElementById('winnerInput').value.trim();
+            if (winnerInput) {
+                localStorage.setItem('winner8', winnerInput);
+                displayWinner();
+            }
+        }
+
+        function displayWinner() {
+            const winnerDisplay = document.getElementById('winnerDisplay');
+            const winner = localStorage.getItem('winner8');
+            if (winner) {
+                winnerDisplay.innerHTML = `Winner: ${winner} <button class="remove-button" onclick="removeWinner()">Remove</button>`;
+            } else {
+                winnerDisplay.textContent = '';
+            }
+        }
+
+        function displaydatetime() {
+            const datetimedisplay = document.getElementById('displaydatetime');
+            const dateTime = localStorage.getItem('dateTime8');
+            if (dateTime) {
+                datetimedisplay.innerHTML = `Date and Time: ${dateTime} <button class="remove-button" onclick="removeDateTime()">Remove</button>`;
+            } else {
+                datetimedisplay.textContent = '';
+            }
+        }
+
+        function removeWinner() {
+            localStorage.removeItem('winner8');
+            displayWinner();
+        }
+
+        function removeDateTime() {
+            localStorage.removeItem('dateTime8');
+            displaydatetime();
+        }
+function filterTable() {
+            const searchValue = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#itemTable tbody tr');
+
+            rows.forEach(row => {
+                const playerName = row.querySelector('td:first-child').textContent.toLowerCase();
+                row.style.display = playerName.includes(searchValue) ? '' : 'none';
+            });
+        }
+      
+        window.onload = function() {
+            updateItemList();
+            displayWinner();
+            displaydatetime();
+        };
+    </script>
+</body>
+</html>

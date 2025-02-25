@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scoreboard</title>
+    <style>
+        body {
+            align-items: center;
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+            background-color: #333; /* Dark gray background for table */
+            color: #fff; /* White text for table */
+        }
+
+        td, th {
+            border: 1px solid #555; /* Lighter gray border */
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #444; /* Darker gray for headers */
+            color: #fff; /* White text for headers */
+        }
+
+        tr:nth-child(even) {
+            background-color: #222; /* Slightly lighter background for even rows */
+        }
+
+        tr:hover {
+            background-color: #555; /* Highlight row on hover */
+        }
+
+        .button {
+            background: linear-gradient(140.14deg, #000 15.05%, #333 114.99%) padding-box, 
+                        linear-gradient(142.51deg, #555 8.65%, #111 88.82%) border-box;
+            border-radius: 7px;
+            border: 2px solid transparent;
+            text-shadow: 1px 1px 1px #00000040;
+            box-shadow: 8px 8px 20px 0px #00000059;
+            padding: 10px 40px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .button:hover {
+            box-shadow: none;
+            opacity: 80%;
+        }
+
+        .input-container {
+            margin: 20px;
+        }
+
+        .input-container input {
+            padding: 8px;
+            font-size: 16px;
+            margin: 5px;
+            background-color: #333; /* Dark input background */
+            color: #fff; /* White input text */
+            border: 1px solid #555; /* Input border */
+            border-radius: 4px;
+        }
+
+        .input-container input::placeholder {
+            color: #aaa; /* Placeholder text color */
+        }
+                     .dashboard {
+        margin-bottom: 30px;
+    }
+
+    .dashboard a {
+        font-size: 22px;
+        text-decoration: none;
+        color: white;
+        margin-right: 20px;
+        font-family: "Times New Roman", serif;
+        font-weight: 500;
+        background-color: #333;
+        padding: 12px 25px;
+        border-radius: 6px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .dashboard a:hover {
+        background-color: white;
+        color: black;
+    }
+
+    </style>
+</head>
+<body>
+<div class="dashboard">
+        <a href="index.html">homepage</a>
+        <a href="shotput2.html" class="link">Check Name</a>   
+    </div>
+    <h3>Players Information</h3>
+
+    <div class="input-container">
+        <input type="text" id="playerName" placeholder="Enter Player Name" />
+        <input type="text" id="classInput" placeholder="Enter Class" />
+        <input type="number" id="rollNoInput" placeholder="Enter Roll No" />
+        <button class="button" onclick="addPlayer()">Add Player</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Player Name</th>
+                <th>Class</th>
+                <th>Roll No</th>
+            </tr>
+        </thead>
+        <tbody id="itemList">
+            <!-- Table rows will be dynamically added here -->
+        </tbody>
+    </table>
+
+    <button class="button" onclick="refreshScoreboard()">Refresh Scoreboard</button>
+
+    <script>
+        function updateItemList() {
+        const itemList = document.getElementById('itemList');
+        itemList.innerHTML = '';
+        const items = JSON.parse(localStorage.getItem('items6')) || [];
+
+        items.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${item.name}</td><td>${item.class}</td><td>${item.rollNo}</td>`;
+            itemList.appendChild(row);
+        });
+    }
+
+    function addPlayer() {
+        const playerName = document.getElementById('playerName').value.trim();
+        const classInput = document.getElementById('classInput').value.trim();
+        const rollNoInput = document.getElementById('rollNoInput').value.trim();
+
+        if (!playerName || !classInput || !rollNoInput) {
+            alert("Please enter player name, class, and roll number.");
+            return;
+        }
+
+        const namePattern = /^[A-Za-z]+$/;
+        if (!namePattern.test(playerName)) {
+            alert("Player name should only contain alphabetic characters.");
+            return;
+        }
+
+        const items = JSON.parse(localStorage.getItem('items6')) || [];
+
+        if (items.some(item => item.name.toLowerCase() === playerName.toLowerCase())) {
+            alert("This player name is already taken.");
+            return;
+        }
+
+        if (items.some(item => item.rollNo === rollNoInput)) {
+            alert("This roll number is already taken.");
+            return;
+        }
+
+        items.push({ name: playerName, class: classInput, rollNo: rollNoInput });
+        localStorage.setItem('items6', JSON.stringify(items));
+        updateItemList();
+    }
+
+    function refreshScoreboard() {
+        updateItemList();
+    }
+
+    updateItemList();
+    </script>
+
+</body>
+</html>

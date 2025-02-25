@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #121212; /* Dark background */
+                color: #e0e0e0; /* Light text color */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-height: 100vh;
+            }
+
+            h1 {
+                margin-top: 20px;
+                color: #ffffff; /* White text for heading */
+            }
+
+            form {
+                margin-top: 20px;
+                padding: 20px;
+                background-color: #1e1e1e; /* Dark background for form */
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                width: 100%;
+                max-width: 400px;
+            }
+
+            .input-style {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #444; /* Dark border color */
+                border-radius: 5px;
+                font-size: 16px;
+                background-color: #333; /* Dark input background */
+                color: #e0e0e0; /* Light text color */
+            }
+
+            .input-style:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+                outline: none;
+            }
+
+            .button {
+                width: 100%;
+                padding: 10px;
+                background-color: black;
+                border: none;
+                border-radius: 5px;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .button:hover {
+                background-color: white;
+                color:black;
+            }
+
+            table {
+                margin-top: 30px;
+                width: 80%;
+                border-collapse: collapse;
+                background-color: #1e1e1e; /* Dark background for table */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                border-radius: 8px;
+                overflow: hidden;
+            }
+
+            table thead {
+                background-color: gray;
+                color: #fff;
+            }
+
+            table th, table td {
+                text-align: left;
+                padding: 10px;
+                border: 1px solid #444; /* Dark border color */
+            }
+
+            table tr:nth-child(even) {
+                background-color: #333; /* Dark alternating row colors */
+            }
+
+            table tr:hover {
+                background-color: #444; /* Hover effect */
+            }
+
+            table td input {
+                width: calc(100% - 10px);
+                padding: 5px;
+                margin: 5px 0;
+                border: 1px solid #444;
+                border-radius: 5px;
+                background-color: #333; /* Dark input background */
+                color: #e0e0e0; /* Light text color */
+            }
+
+            table td input:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
+
+            button {
+                padding: 5px 10px;
+                color: #fff;
+                background-color: #dc3545;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            button:hover {
+                background-color: #c82333;
+            }
+                            .dashboard {
+        margin-bottom: 30px;
+    }
+
+    .dashboard a {
+        font-size: 22px;
+        text-decoration: none;
+        color: white;
+        margin-right: 20px;
+        font-family: "Times New Roman", serif;
+        font-weight: 500;
+        background-color: #333;
+        padding: 12px 25px;
+        border-radius: 6px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .dashboard a:hover {
+        background-color: white;
+        color: black;
+    }
+
+        </style>
+    </head>
+    <body>
+          <div class="dashboard">
+        <a href="index.html">homepage</a>
+        <a href="tugofwar2.html" class="link">Check Name</a>   
+    </div>
+        <form id="inputForm">
+            <input type="text" id="userInput" name="userInput" placeholder="Enter class" class="input-style" required><br><br>
+            <input type="text" id="players" name="players" placeholder="Eg.player1/roll no.,player2/roll no." class="input-style" required><br><br>
+            <button type="button" class="button" onclick="addItem()">Add Team</button>
+        </form>
+           <table id="teamTable">
+            <thead>
+                <tr>
+                    <th>Team Name</th>
+                    <th>Players</th>
+                </tr>
+            </thead>
+            <tbody id="itemList"></tbody>
+        </table>
+        <script>
+  function addItem() {
+            const input = document.getElementById('userInput');
+            const players = document.getElementById('players');
+
+            const newItem = input.value.trim();
+            const newPlayers = players.value.trim();
+
+            if (!newItem || !isNaN(newItem)) {
+                alert('Please enter a valid team name (non-numeric).');
+                return;
+            }
+            if (isDuplicate(newItem)) {
+                alert('Team name must be unique.');
+                return;
+            }
+
+            if (!newPlayers) {
+                alert('Please enter players in the format: name/rollno, name/rollno');
+                return;
+            }
+
+            const playerList = newPlayers.split(',').map(player => player.trim());
+            const validFormat = playerList.every(player => /^[A-Za-z]+\/\d+$/.test(player));
+
+            if (!validFormat) {
+                alert('Each player must be in the format: name/rollno (e.g., John/101, Jane/102)');
+                return;
+            }
+
+            let allPlayers = getAllPlayers();
+            let names = new Set();
+            let rollNos = new Set();
+
+            for (let player of playerList) {
+                let [name, rollNo] = player.split('/');
+                if (names.has(name) || rollNos.has(rollNo) || allPlayers.names.has(name) || allPlayers.rollNos.has(rollNo)) {
+                    alert('Duplicate player names or roll numbers across teams are not allowed.');
+                    return;
+                }
+                names.add(name);
+                rollNos.add(rollNo);
+            }
+
+            if (playerList.length !== 10) {
+                alert('You must have to add 10 players.');
+                return;
+            }
+
+            let items = JSON.parse(localStorage.getItem('items9')) || [];
+            items.push({
+                name: newItem,
+                players: playerList
+            });
+            localStorage.setItem('items9', JSON.stringify(items));
+
+            input.value = '';
+            players.value = '';
+
+            updateItemList();
+        }
+
+        function isDuplicate(newItem) {
+            const items = JSON.parse(localStorage.getItem('items9')) || [];
+            return items.some(item => item.name.toLowerCase() === newItem.toLowerCase());
+        }
+
+        function getAllPlayers() {
+            let items = JSON.parse(localStorage.getItem('items9')) || [];
+            let names = new Set();
+            let rollNos = new Set();
+            items.forEach(item => {
+                item.players.forEach(player => {
+                    let [name, rollNo] = player.split('/');
+                    names.add(name);
+                    rollNos.add(rollNo);
+                });
+            });
+            return { names, rollNos };
+        }
+
+        function updateItemList() {
+            const itemList = document.getElementById('itemList');
+            itemList.innerHTML = '';
+            const items = JSON.parse(localStorage.getItem('items9')) || [];
+
+            items.forEach((item) => {
+                const row = document.createElement('tr');
+                const cell1 = document.createElement('td');
+                const playersCell = document.createElement('td');
+
+                cell1.textContent = item.name;
+                playersCell.textContent = item.players.join(', ');
+
+                row.appendChild(cell1);
+                row.appendChild(playersCell);
+
+                itemList.appendChild(row);
+            });
+        }
+
+        // Load data when the page refreshes
+        window.onload = updateItemList;
+        </script>
+    </body>
+</html>
